@@ -41,3 +41,36 @@ export class Credentials {
         this.password = password;
     }
 }
+
+
+
+
+// Sensor Class
+export class Sensor {
+    _id: string;
+    displayName: string;
+    type: string;
+    manufacturer: string;
+    gateway: string;
+    protocol: string;
+    
+    
+    constructor(
+        displayName: string,
+        type: string,
+        manufacturer: string,
+        gateway: string,
+        protocol: string,
+    ) {
+        this.displayName = displayName;
+        this.type = type;
+        this.manufacturer = manufacturer;
+        this.gateway = gateway;
+        this.protocol = protocol;
+    }
+}
+
+export function newSensor() {
+    return new Sensor('', '', '', '', '');
+}
+

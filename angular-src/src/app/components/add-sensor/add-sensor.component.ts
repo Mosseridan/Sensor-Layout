@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Sensor, newSensor } from '../../types';
 
 @Component({
   selector: 'app-add-sensor',
   templateUrl: './add-sensor.component.html',
   styleUrls: ['./add-sensor.component.css']
 })
+
 export class AddSensorComponent implements OnInit {
   types = [
     "Automotive",
@@ -45,12 +47,25 @@ export class AddSensorComponent implements OnInit {
     "gateway5"
   ];
 
-  displayName = "";
+  protocols = [
+    "MQTT",
+    "HTTP",
+    "HTTPS",
+    "RAW",
+  ];
 
+  sensor :Sensor;
+    
 
   constructor() { }
 
   ngOnInit() {
+    this.sensor = newSensor();
+  }
+
+
+  onSubmit(){
+    console.log('Implement this!');
   }
 
 }

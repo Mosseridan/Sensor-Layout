@@ -5,7 +5,8 @@ import { RouterModule , Routes} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule, MatFormField, MatAutocomplete, MatOption } from '@angular/material';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -40,7 +41,9 @@ const appRoutes = [
     RegisterComponent,
     LoginComponent,
     PageNotFoundComponent,   
-    DashboardComponent, AddSensorComponent, AddGatewayComponent,
+    DashboardComponent,
+    AddSensorComponent,
+    AddGatewayComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +51,11 @@ const appRoutes = [
     FormsModule,
     HttpModule,
     FlashMessagesModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatFormField,
+    MatAutocomplete,
+    MatOption
   ],
   providers: [
     AuthService,
