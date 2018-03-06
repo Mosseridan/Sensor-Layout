@@ -1,0 +1,51 @@
+<h2 class="page-header">Add Sensor</h2>
+
+
+
+
+<form class="mat-form" (submit)="onSubmit()">
+  <app-auto-complete [options]="types" [placeHolder]="'Pick A Type'"></app-auto-complete>      
+  <app-auto-complete [options]="manufacturers" [placeHolder]="'Pick A Manufacturers'"></app-auto-complete>
+  <app-auto-complete [options]="gateways"  [placeHolder]="'Pick A Gateway'"></app-auto-complete>
+  <app-auto-complete [options]="protocols" [placeHolder]="'Pick A Protocol'"></app-auto-complete>
+
+  <mat-form-field class="mat-full-width">
+    <input matInput placeholder="Display Name" value="{{displayName}}">
+  </mat-form-field>
+
+  <!-- <div class="form-group">
+    <label for="typeSelect">Type</label>
+    <select class="form-control" id="typeSelect">
+      <option *ngFor="let type of types" value="type">{{ type }}</option>
+    </select>
+  </div> -->
+
+  <!-- <div class="form-group">
+    <label for="manufacturerSelect">Manufacturere</label>
+    <select class="form-control" id="manufacturerSelect">
+      <option *ngFor="let manufacturer of manufacturers" value="manufacturer" >{{ manufacturer }}</option>
+    </select>
+  </div> -->
+
+  <!-- <div class="form-group">
+    <label for="gatewaySelect">Gateway</label>
+    <select class="form-control" id="gatewaySelect">
+      <option *ngFor="let gateway of gateways"  value="gateway">{{ gateway }}</option>
+    </select>
+  </div> -->
+
+  <!-- <div class="form-group">
+      <label for="protocolSelect">Protocol</label>
+      <select class="form-control" id="protocolSelect">
+        <option *ngFor="let protocol of protocols" value="protocol">{{ protocol }}</option>
+      </select>
+    </div> -->
+<!-- 
+  <div class="form-group">
+    <label for="displayName">Display Name</label>
+    <input type="text" class="form-control" [(ngModel)]="sensor.displayName" name="displayName" placeholder="sensor1">
+  </div> -->
+  
+  
+  <input type="submit" class="btn btn-primary" value="Add">
+</form>

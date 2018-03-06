@@ -2,11 +2,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule , Routes} from '@angular/router';
-import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule, MatFormField, MatAutocomplete, MatOption } from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -23,6 +23,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AddSensorComponent } from './components/add-sensor/add-sensor.component';
 import { AddGatewayComponent } from './components/add-gateway/add-gateway.component';
+import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 
 
 const appRoutes = [
@@ -44,18 +45,17 @@ const appRoutes = [
     DashboardComponent,
     AddSensorComponent,
     AddGatewayComponent,
+    AutoCompleteComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule,
     HttpModule,
-    FlashMessagesModule,
+    FlashMessagesModule.forRoot(),
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatFormField,
-    MatAutocomplete,
-    MatOption
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule, MatInputModule, MatAutocompleteModule
   ],
   providers: [
     AuthService,

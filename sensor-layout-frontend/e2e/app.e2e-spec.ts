@@ -1,10 +1,10 @@
-import { AngularSrcPage } from './app.po';
+import { AppPage } from './app.po';
 
-describe('angular-src App', () => {
-  let page: AngularSrcPage;
+describe('sensor-layout-frontend App', () => {
+  let page: AppPage;
 
   beforeEach(() => {
-    page = new AngularSrcPage();
+    page = new AppPage();
   });
 
   it('should display welcome message', () => {
