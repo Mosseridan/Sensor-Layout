@@ -4,10 +4,11 @@
 
 
 <form class="mat-form" (submit)="onSubmit()">
-  <app-auto-complete [options]="types" [placeHolder]="'Pick A Type'"></app-auto-complete>      
-  <app-auto-complete [options]="manufacturers" [placeHolder]="'Pick A Manufacturers'"></app-auto-complete>
-  <app-auto-complete [options]="gateways"  [placeHolder]="'Pick A Gateway'"></app-auto-complete>
-  <app-auto-complete [options]="protocols" [placeHolder]="'Pick A Protocol'"></app-auto-complete>
+  <app-auto-complete [options]="types" [placeHolder]="'Type'"></app-auto-complete> 
+       
+  <app-auto-complete [options]="manufacturers" [placeHolder]="'Manufacturers'"></app-auto-complete>
+  <app-auto-complete [options]="gateways"  [placeHolder]="'Gateway'"></app-auto-complete>
+  <app-auto-complete [options]="protocols" [placeHolder]="'Protocol'"></app-auto-complete>
 
   <mat-form-field class="mat-full-width">
     <input matInput placeholder="Display Name" value="{{displayName}}">

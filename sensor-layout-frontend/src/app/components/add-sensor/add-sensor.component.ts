@@ -98,6 +98,10 @@ export class AddSensorComponent implements OnInit {
   onSubmit(){
     
     console.log('Implement this!');
+    let sensor = {
+      
+    }
+
   }
 
 }

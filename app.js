@@ -8,6 +8,9 @@ const express = require('express');
 const app = require('express')();
 const http = require('http').Server(app);
 const users = require('./routes/users-route');
+const sensors = require('./routes/sensors-route');
+const gateways = require('./routes/gateways-route');
+const sites = require('./routes/sites-route');
 const config = require('./config/database');
 
 
@@ -40,6 +43,10 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
+app.use('/sensors', sensors);
+app.use('/gateways', gateways);
+app.use('/sites', sites);
+
 // Index route
 app.get('*', (req,res) =>
 res.sendFile(path.join(__dirname, 'index.html')));
