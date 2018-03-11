@@ -97,3 +97,24 @@ export class Gateway {
 export function newGateway() {
     return new Gateway('', '', '');
 }
+
+
+// Site Class
+export class Site {
+    _id: string;
+    displayName: string;
+    type: string;
+
+    constructor(
+        displayName: string,
+        type: string,
+
+    ) {
+        this.displayName = displayName;
+        this.type = type;
+    }
+}
+
+export function newSite() {
+    return new Site('', '');
+}

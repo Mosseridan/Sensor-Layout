@@ -23,6 +23,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { AddSensorComponent } from './components/add-sensor/add-sensor.component';
 import { AddGatewayComponent } from './components/add-gateway/add-gateway.component';
+import { AddSiteComponent } from './components/add-site/add-site.component';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 
 
@@ -32,19 +33,21 @@ const appRoutes = [
   {path: 'register', component: RegisterComponent, canActivate:[AuthGuard]},
   {path: 'add-sensor', component: AddSensorComponent, canActivate:[AuthGuard]},
   {path: 'add-gateway', component: AddGatewayComponent, canActivate:[AuthGuard]},
+  {path: 'add-site', component: AddSiteComponent, canActivate:[AuthGuard]},
   {path: '**', component: PageNotFoundComponent},
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent,   
+    NavbarComponent,
     RegisterComponent,
     LoginComponent,
-    PageNotFoundComponent,   
+    PageNotFoundComponent,
     DashboardComponent,
     AddSensorComponent,
     AddGatewayComponent,
+    AddSiteComponent,
     AutoCompleteComponent,
   ],
   imports: [
@@ -59,7 +62,7 @@ const appRoutes = [
   ],
   providers: [
     AuthService,
-    AuthGuard,    
+    AuthGuard,
     ValidationService,
   ],
   bootstrap: [AppComponent]
