@@ -2,6 +2,7 @@
 
 <form class="mat-form" (submit)="onSubmit()">
   <app-auto-complete [options]="types" [placeHolder]="'Type'"></app-auto-complete>
+  <app-auto-complete [options]="sites" [placeHolder]="'Parent Site'"></app-auto-complete>
 
   <mat-form-field class="mat-full-width">
     <input matInput placeholder="Display Name" value="{{displayName}}">

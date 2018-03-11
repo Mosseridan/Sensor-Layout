@@ -25,6 +25,11 @@ export class AddSiteComponent implements OnInit {
     "Campus"
   ];
 
+  sites = [
+    "site1",
+    "site2"
+  ];
+
   displayName;
 
   site :Site;
