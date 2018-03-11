@@ -30,6 +30,20 @@ export class AddGatewayComponent implements OnInit {
     "ADVANTEC"
   ];
 
+  gateways = [
+    "Parent1",
+    "Parent2",
+    "Parent3"
+  ];
+
+  sites = [
+    "Site1",
+    "Site2",
+    "Site3"
+  ];
+
+
+
   displayName;
 
   gateway :Gateway;
