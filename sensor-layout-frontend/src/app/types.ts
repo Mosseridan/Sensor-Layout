@@ -53,8 +53,8 @@ export class Sensor {
     manufacturer: string;
     gateway: string;
     protocol: string;
-    
-    
+
+
     constructor(
         displayName: string,
         type: string,
@@ -74,3 +74,26 @@ export function newSensor() {
     return new Sensor('', '', '', '', '');
 }
 
+
+// Gateway Class
+export class Gateway {
+    _id: string;
+    displayName: string;
+    type: string;
+    manufacturer: string;
+
+    constructor(
+        displayName: string,
+        type: string,
+        manufacturer: string,
+
+    ) {
+        this.displayName = displayName;
+        this.type = type;
+        this.manufacturer = manufacturer;
+    }
+}
+
+export function newGateway() {
+    return new Gateway('', '', '');
+}

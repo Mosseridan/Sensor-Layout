@@ -1,3 +1,12 @@
-<p>
-  add-gateway works!
-</p>
+<h2 class="page-header">Add Gateway</h2>
+
+<form class="mat-form" (submit)="onSubmit()">
+  <app-auto-complete [options]="types" [placeHolder]="'Type'"></app-auto-complete>
+  <app-auto-complete [options]="manufacturers" [placeHolder]="'Manufacturers'"></app-auto-complete>
+
+  <mat-form-field class="mat-full-width">
+    <input matInput placeholder="Display Name" value="{{displayName}}">
+  </mat-form-field>
+
+  <input type="submit" class="btn btn-primary" value="Add">
+</form>
