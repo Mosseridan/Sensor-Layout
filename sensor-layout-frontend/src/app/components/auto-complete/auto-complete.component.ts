@@ -13,11 +13,9 @@ export class AutoCompleteComponent implements OnInit {
   myControl: FormControl = new FormControl();
   @Input() options;
   @Input() placeHolder;
+  selectedValue;
   filteredOptions: Observable<string[]>;
  
- 
-
-
   constructor() { }
 
   ngOnInit() {
@@ -30,5 +28,4 @@ export class AutoCompleteComponent implements OnInit {
   filter(val: string): string[] {
     return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
-
 }

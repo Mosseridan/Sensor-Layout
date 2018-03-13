@@ -31,8 +31,6 @@ const port = process.env.PORT || 3000;
 // CORS middleware
 app.use(cors());
 
-// Set static foleder
-app.use(express.static(path.join(__dirname, 'shared')));
 
 // Body-parser middleware
 app.use(bodyParser.json());
@@ -47,11 +45,15 @@ app.use('/sensors', sensors);
 app.use('/gateways', gateways);
 app.use('/sites', sites);
 
-// Index route
-app.get('*', (req,res) =>
-res.sendFile(path.join(__dirname, 'index.html')));
+// // Index route
+// app.get('*', (req,res) =>
+// res.sendFile(path.join(__dirname, 'index.html')));
+
+// Set static foleder
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'shared')));
 
 // Start Server
-http.listen(port, () => {
+http.listen(port, () => { 
   console.log('Server started on port '+ port);
 });

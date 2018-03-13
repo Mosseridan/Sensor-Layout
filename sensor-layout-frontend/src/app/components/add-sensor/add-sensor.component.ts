@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ViewChild } from '@angular/core';
 import { Sensor, newSensor } from '../../types';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { startWith } from 'rxjs/operators/startWith';
 import { map } from 'rxjs/operators/map';
-
+import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
+import { AuthService } from '../../services/auth/auth.service';
+import { ValidationService } from '../../services/validation/validation.service';
 
 @Component({
   selector: 'app-add-sensor',
@@ -12,11 +12,7 @@ import { map } from 'rxjs/operators/map';
   styleUrls: ['./add-sensor.component.css']
 })
 
-export class AddSensorComponent implements OnInit {
-  myControl: FormControl = new FormControl();
-  options = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
- 
+export class AddSensorComponent implements OnInit { 
  
   types = [
     "Automotive",
@@ -74,34 +70,31 @@ export class AddSensorComponent implements OnInit {
     "RAW",
   ];
 
-  displayName;
+  displayName: string;
+  @ViewChild('type') typeAC: AutoCompleteComponent;
+  @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
+  @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
+  @ViewChild('protocol') protocolAC: AutoCompleteComponent;
 
-  sensor :Sensor;
-    
-
-  constructor() { }
+  constructor(
+    private validateService: ValidationService,
+    private authService: AuthService
+  ) { }
 
   ngOnInit() {
-    this.sensor = newSensor();
-    
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(val => this.filter(val))
-    );
   }
-
-  filter(val: string): string[] {
-    return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
-  }
-
 
   onSubmit(){
     
-    console.log('Implement this!');
-    let sensor = {
-      
-    }
-
+    let sensor = new Sensor(
+      this.displayName,
+      this.typeAC.selectedValue,
+      this.manufacturerAC.selectedValue,
+      this.gatewayAC.selectedValue,
+      this.protocolAC.selectedValue
+    );
+    console.log('@@@',sensor,'@@@');
+   
   }
 
 }
