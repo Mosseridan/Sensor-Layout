@@ -1,7 +1,6 @@
 import { Component, OnInit,  ViewChild } from '@angular/core';
 import { Sensor, newSensor } from '../../types';
 import { FormControl } from '@angular/forms';
-import { map } from 'rxjs/operators/map';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { ValidationService } from '../../services/validation/validation.service';
@@ -45,6 +44,13 @@ export class AddSensorComponent implements OnInit {
     "Other"
   ];
 
+  protocols = [
+    "MQTT",
+    "HTTP",
+    "HTTPS",
+    "RAW",
+  ];
+
   gateways = [
     "gateway1",
     "gateway2",
@@ -63,19 +69,22 @@ export class AddSensorComponent implements OnInit {
     "gateway15"
   ];
 
-  protocols = [
-    "MQTT",
-    "HTTP",
-    "HTTPS",
-    "RAW",
+  sites = [
+    "gateway11",
+    "gateway12",
+    "gateway13",
+    "gateway14",
+    "gateway15"
   ];
+
 
   displayName: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
+  @ViewChild('protocol') protocolAC: AutoCompleteComponent;  
   @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
-  @ViewChild('protocol') protocolAC: AutoCompleteComponent;
-
+  @ViewChild('site') siteAC: AutoCompleteComponent;
+  
   constructor(
     private validateService: ValidationService,
     private authService: AuthService
@@ -90,8 +99,9 @@ export class AddSensorComponent implements OnInit {
       this.displayName,
       this.typeAC.selectedValue,
       this.manufacturerAC.selectedValue,
+      this.protocolAC.selectedValue,   
       this.gatewayAC.selectedValue,
-      this.protocolAC.selectedValue
+      this.siteAC.selectedValue
     );
     console.log('@@@',sensor,'@@@');
    

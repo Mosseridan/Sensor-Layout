@@ -32,8 +32,18 @@ module.exports.getSiteByName = function(name, callback){
     Site.findOne({'name': name}, callback);
 }
 
+module.exports.getAllSites = function(callback){
+    Site.find().exec(callback);
+}
+
 module.exports.addSite = function(newSite, callback) {
-    newSite.save(callback);
+    if (!newSite.parentSite) return newSite.save(callback);
+    Site.getSiteByName(newSite.parentSite, (err, parentSite) => {
+        if (err) callback(err);
+        if (!parentSite) callback('Cant add site. Ivalid parent site given.');
+        newSite.parentSite = parentSite._id;
+        newSite.save(callback);
+    });
 }
 
 module.exports.addGateway = function(newGateway, callback) {

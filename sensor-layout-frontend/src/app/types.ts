@@ -42,43 +42,58 @@ export class Credentials {
     }
 }
 
+// Auto Complete Option Class
+export class AutoCompleteOption {
+    _id: string;
+    name: string;
 
+    constructor(
+        name: string,
+    ) {
+        this.name = name;
+    }
+}
 
+export function newAutoCompleteOption() {
+    return new AutoCompleteOption('');
+}
 
 // Sensor Class
 export class Sensor {
     _id: string;
-    displayName: string;
+    name: string;
     type: string;
     manufacturer: string;
+    protocol: string;    
     gateway: string;
-    protocol: string;
-
+    site: string;
 
     constructor(
-        displayName: string,
+        name: string,
         type: string,
         manufacturer: string,
-        gateway: string,
         protocol: string,
+        gateway: string,
+        site: string        
     ) {
-        this.displayName = displayName;
+        this.name = name;
         this.type = type;
         this.manufacturer = manufacturer;
+        this.protocol = protocol;        
         this.gateway = gateway;
-        this.protocol = protocol;
+        this.site = site;
     }
 }
 
 export function newSensor() {
-    return new Sensor('', '', '', '', '');
+    return new Sensor('', '', '', '', '', '');
 }
 
 
 // Gateway Class
 export class Gateway {
     _id: string;
-    displayName: string;
+    name: string;
     type: string;
     manufacturer: string;
 
@@ -88,7 +103,7 @@ export class Gateway {
         manufacturer: string,
 
     ) {
-        this.displayName = displayName;
+        this.name = displayName;
         this.type = type;
         this.manufacturer = manufacturer;
     }
@@ -102,19 +117,24 @@ export function newGateway() {
 // Site Class
 export class Site {
     _id: string;
-    displayName: string;
-    type: string;
+    name: string;
+    gateways: string[];
+    parentSite: string;
+    childSites: string[];
 
     constructor(
-        displayName: string,
-        type: string,
-
+        name: string,
+        gateways: string[],
+        parentSite: string,
+        childSites: string[]
     ) {
-        this.displayName = displayName;
-        this.type = type;
+        this.name = name;
+        this.gateways = gateways;
+        this.parentSite = parentSite;
+        this.childSites = childSites;
     }
 }
 
 export function newSite() {
-    return new Site('', '');
+    return new Site('', [], '', []);
 }

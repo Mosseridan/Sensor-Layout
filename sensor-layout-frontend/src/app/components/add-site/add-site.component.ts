@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Site, newSite } from '../../types';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { startWith } from 'rxjs/operators/startWith';
-import { map } from 'rxjs/operators/map';
+import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
+import { AuthService } from '../../services/auth/auth.service';
+import { ValidationService } from '../../services/validation/validation.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 
 @Component({
@@ -12,51 +14,43 @@ import { map } from 'rxjs/operators/map';
   styleUrls: ['./add-site.component.css']
 })
 
-export class AddSiteComponent implements OnInit {
-  myControl: FormControl = new FormControl();
-  options = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+export class AddSiteComponent implements OnInit { 
+  displayName: string;
+  sites: string[];
 
-
-  types = [
-    "Room",
-    "Floor",
-    "Building",
-    "Campus"
-  ];
-
-  sites = [
-    "site1",
-    "site2"
-  ];
-
-  displayName;
-
-  site :Site;
-
-  constructor() { }
+  @ViewChild('parentSite') parentSiteAC: AutoCompleteComponent;
+ 
+  constructor(
+    private router: Router,
+    private validateService: ValidationService,
+    private authService: AuthService,
+    private flashMessage: FlashMessagesService
+  ) { 
+    this.sites = [];
+  }
 
   ngOnInit() {
-    this.site = newSite();
+    
+  }
 
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(val => this.filter(val))
+  onSubmit(){ 
+    let site = new Site(
+      this.displayName,
+      [],
+      this.parentSiteAC.selectedValue,
+      []
     );
-  }
 
-  filter(val: string): string[] {
-    return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
-  }
-
-
-  onSubmit(){
-
-    console.log('Implement this!');
-    let site = {
-
-    }
-
+    console.log('@@@',site,'@@@');
+    this.authService.post('sites/add',site).subscribe((res) => {
+      if(!res.success) {
+        console.log(res.msg);
+        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});        
+      }
+      console.log("Added Site: ",res.data);
+      this.flashMessage.show("Site Added Successfully", {cssClass: 'alert-success', timeout: 5000}); 
+      this.router.navigate(['add-site']);  
+    });
   }
 
 }

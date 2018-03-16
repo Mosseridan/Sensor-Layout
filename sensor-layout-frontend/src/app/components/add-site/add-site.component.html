@@ -1,12 +1,15 @@
 <h2 class="page-header">Add Site</h2>
 
 <form class="mat-form" (submit)="onSubmit()">
-  <app-auto-complete [options]="types" [placeHolder]="'Type'"></app-auto-complete>
-  <app-auto-complete [options]="sites" [placeHolder]="'Parent Site'"></app-auto-complete>
 
   <mat-form-field class="mat-full-width">
-    <input matInput placeholder="Display Name" value="{{displayName}}">
+    <input matInput placeholder="Display Name"  [(ngModel)]="displayName" name="displayName">
   </mat-form-field>
 
+  <h2>{{displayName}}</h2>
+
+  <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Parent Site'" #parentSite></app-auto-complete> 
+    
   <input type="submit" class="btn btn-primary" value="Add">
+
 </form>
