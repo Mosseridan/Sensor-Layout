@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class AuthService {
-  baseUrl = 'http://localhost:3000/';
+  baseUrl = 'http://localhost:8080/';
   constructor(private http: Http) { }
 
   get(url: string, page: number = 1) {
