@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+const Site = require('./site-model');
 
 // Sensor schema
 const SensorSchema = mongoose.Schema({
@@ -13,7 +14,7 @@ const SensorSchema = mongoose.Schema({
     },
     manufacturer: {
        type: String,
-       required: true 
+       required: true
     },
     protocol: {
         type: String,
@@ -25,7 +26,7 @@ const SensorSchema = mongoose.Schema({
     },
     site: {
         type: String,
-        required: true 
+        required: true
     }
 });
 
