@@ -13,7 +13,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./auto-complete.component.css']
 })
 export class AutoCompleteComponent implements OnInit {
-  myControl: FormControl = new FormControl();
+ myControl: FormControl = new FormControl();
   @Input() optionsSourceUrl;
   @Input() placeHolder;
   options: string[];
@@ -34,8 +34,6 @@ export class AutoCompleteComponent implements OnInit {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});        
       }
-      console.log(res.data);
-      console.log(res.data.map(option => option.name));
       this.options = res.data.map(option => option.name);
       
       this.filteredOptions = this.myControl.valueChanges.pipe(

@@ -96,21 +96,32 @@ export class Gateway {
     name: string;
     type: string;
     manufacturer: string;
+    site: string;
+    parentGateway: string;
+    childGateways: string[];
+    sensors: string[];
 
     constructor(
-        displayName: string,
+        name: string,
         type: string,
         manufacturer: string,
-
+        site: string,
+        parentGateway: string,
+        childGateways: string[],
+        sensors: string[],
     ) {
-        this.name = displayName;
+        this.name = name;
         this.type = type;
         this.manufacturer = manufacturer;
+        this.site = site;
+        this.parentGateway = parentGateway;
+        this.childGateways = childGateways;
+        this.sensors = sensors;
     }
 }
 
 export function newGateway() {
-    return new Gateway('', '', '');
+    return new Gateway('', '', '', '', '', [], []);
 }
 
 

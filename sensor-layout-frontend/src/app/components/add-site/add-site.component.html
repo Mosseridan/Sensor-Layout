@@ -3,10 +3,8 @@
 <form class="mat-form" (submit)="onSubmit()">
 
   <mat-form-field class="mat-full-width">
-    <input matInput placeholder="Display Name"  [(ngModel)]="displayName" name="displayName">
+    <input matInput placeholder="Display Name"  [(ngModel)]="name" name="name">
   </mat-form-field>
-
-  <h2>{{displayName}}</h2>
 
   <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Parent Site'" #parentSite></app-auto-complete> 
     

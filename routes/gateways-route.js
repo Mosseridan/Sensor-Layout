@@ -25,4 +25,12 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
        
 });
 
+// Get All Gateways
+router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Site.getAllGateways((err, gateways) => {
+        if (err) return res.json({ success: false , msg: 'Failed to get all gateways: ' +  err });
+        res.json({ success: true, data: gateways });
+    });      
+});
+
 module.exports = router;

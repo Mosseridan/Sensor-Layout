@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Gateway, newGateway } from '../../types';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
-import { startWith } from 'rxjs/operators/startWith';
-import { map } from 'rxjs/operators/map';
+import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
+import { AuthService } from '../../services/auth/auth.service';
+import { ValidationService } from '../../services/validation/validation.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-add-gateway',
@@ -11,65 +13,49 @@ import { map } from 'rxjs/operators/map';
   styleUrls: ['./add-gateway.component.css']
 })
 export class AddGatewayComponent implements OnInit {
-  myControl: FormControl = new FormControl();
-  options = ['One', 'Two', 'Three'];
-  filteredOptions: Observable<string[]>;
+    name: string;
+    @ViewChild('type') typeAC: AutoCompleteComponent;
+    @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
+    @ViewChild('site') siteAC: AutoCompleteComponent;
+    @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
 
-  types = [
-    "Exclusive Gateway",
-    "Event-based Gateway",
-    "Parallel Gateway",
-    "Parallel event-based Gateway",
-    "Inclusive Gateway",
-    "Complex Gateway",
-  ];
-
-  manufacturers = [
-    "Adlink",
-    "DELL",
-    "ADVANTEC"
-  ];
-
-  gateways = [
-    "Parent1",
-    "Parent2",
-    "Parent3"
-  ];
-
-  sites = [
-    "Site1",
-    "Site2",
-    "Site3"
-  ];
-
-
-
-  displayName;
-
-  gateway :Gateway;
-
-  constructor() { }
-
-  ngOnInit() {
-    this.gateway = newGateway();
-
-    this.filteredOptions = this.myControl.valueChanges.pipe(
-      startWith(''),
-      map(val => this.filter(val))
-    );
-  }
-
-  filter(val: string): string[] {
-    return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
-  }
-
-  onSubmit(){
-
-    console.log('Implement this!');
-    let gateway = {
-
+    constructor(
+      private router: Router,
+      private validateService: ValidationService,
+      private authService: AuthService,
+      private flashMessage: FlashMessagesService
+    ) {  }
+  
+    ngOnInit() {
+      
     }
-
+  
+    onSubmit(){ 
+  
+      
+      let gateway = new Gateway(
+        this.name,
+        this.typeAC.selectedValue,
+        this.manufacturerAC.selectedValue,
+        this.siteAC.selectedValue,
+        this.parentGatewayAC.selectedValue,
+        [],
+        []
+      );
+  
+  
+      console.log('@@@',gateway,'@@@');
+      this.authService.post('gateways/add',gateway).subscribe((res) => {
+        if(!res.success) {
+          console.log(res.msg);
+          return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});        
+        }
+        console.log("Added Gateway: ",res.data);
+        this.flashMessage.show("Gateway Added Successfully", {cssClass: 'alert-success', timeout: 5000}); 
+        
+        this.router.navigate(['/']);    
+      });
+    }
+  
   }
-
-}
+  

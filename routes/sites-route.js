@@ -7,7 +7,6 @@ const Site = require('../models/site-model');
 
 // Add Site
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    
     const newSite = new Site({
         'name': req.body.name,
         'gateways': [],
@@ -19,11 +18,12 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         if (err) return res.json({ success: false , msg: 'Failed to add site: ' +  err });
         res.json({ success: true, data: site });
     });
-       
 });
 
 // Get All Sites
 router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    return res.json({ success: false , msg: 'Failed to get all sites: ' });
+    
     Site.getAllSites((err, sites) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all sites: ' +  err });
         res.json({ success: true, data: sites });

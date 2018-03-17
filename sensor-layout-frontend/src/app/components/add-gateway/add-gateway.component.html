@@ -1,14 +1,16 @@
 <h2 class="page-header">Add Gateway</h2>
 
 <form class="mat-form" (submit)="onSubmit()">
-  <app-auto-complete [optionsSourceUrl]="types/all" [placeHolder]="'Type'"></app-auto-complete>
-  <app-auto-complete [optionsSourceUrl]="manufacturers/all" [placeHolder]="'Manufacturers'"></app-auto-complete>
-  <app-auto-complete [optionsSourceUrl]="gateways/all" [placeHolder]="'Parent Gateway'"></app-auto-complete>
-  <app-auto-complete [optionsSourceUrl]="sites/all" [placeHolder]="'Site'"></app-auto-complete>
 
   <mat-form-field class="mat-full-width">
-    <input matInput placeholder="Display Name" value="{{displayName}}">
+    <input matInput placeholder="Display Name"  [(ngModel)]="name" name="name">
   </mat-form-field>
+  
+  <app-auto-complete [optionsSourceUrl]="'types/gateway'" [placeHolder]="'Type'" #type></app-auto-complete> 
+  <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" #manufacturer></app-auto-complete> 
+  <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Site'" #site></app-auto-complete> 
+  <app-auto-complete [optionsSourceUrl]="'gateways/all'" [placeHolder]="'Parent Gateway'" #parentGateway></app-auto-complete> 
 
   <input type="submit" class="btn btn-primary" value="Add">
+
 </form>

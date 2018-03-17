@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
-const Site = require('./site-model');
-const Gateway = require('./gateway-model');
 
 // Sensor schema
 const SensorSchema = mongoose.Schema({

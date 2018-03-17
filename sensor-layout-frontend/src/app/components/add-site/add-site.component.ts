@@ -15,9 +15,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 
 export class AddSiteComponent implements OnInit { 
-  displayName: string;
-  sites: string[];
-
+  name: string;
   @ViewChild('parentSite') parentSiteAC: AutoCompleteComponent;
  
   constructor(
@@ -25,21 +23,22 @@ export class AddSiteComponent implements OnInit {
     private validateService: ValidationService,
     private authService: AuthService,
     private flashMessage: FlashMessagesService
-  ) { 
-    this.sites = [];
-  }
+  ) {  }
 
   ngOnInit() {
     
   }
 
   onSubmit(){ 
+
+    
     let site = new Site(
-      this.displayName,
+      this.name,
       [],
       this.parentSiteAC.selectedValue,
       []
     );
+
 
     console.log('@@@',site,'@@@');
     this.authService.post('sites/add',site).subscribe((res) => {
@@ -49,7 +48,8 @@ export class AddSiteComponent implements OnInit {
       }
       console.log("Added Site: ",res.data);
       this.flashMessage.show("Site Added Successfully", {cssClass: 'alert-success', timeout: 5000}); 
-      this.router.navigate(['add-site']);  
+      
+      this.router.navigate(['/']);    
     });
   }
 
