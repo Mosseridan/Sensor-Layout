@@ -46,6 +46,10 @@ module.exports.getGatewayByName = function(name, callback){
     Gateway.findOne({'name': name}, callback);
 }
 
+module.exports.getAllGateways = function(callback){
+    Gateway.find().exec(callback);
+}
+
 module.exports.addGateway = function(newGateway, callback) {
     if (!newGateway.name) return callback('Cant add gateway. No name specified');
     if (!newGateway.type) return callback('Cant add gateway. No type specified');
