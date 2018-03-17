@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
 const Site = require('./site-model');
-const Mangufacturer = require('./manufacturer-model');
+const Manufacturer = require('./manufacturer-model');
 
 // Gateway schema
 const GatewaySchema = mongoose.Schema({
@@ -23,7 +23,7 @@ const GatewaySchema = mongoose.Schema({
     },
     parentGateway: {
         type: String,
-        required: false 
+        required: false
      },
     childGateways: {
         type: [String],
@@ -57,19 +57,19 @@ module.exports.addGateway = function(newGateway, callback) {
         if (err) return callback(err);
         // If so return an err
         if (gateway) return callback('Cant add gateway. A gateway with this name already exists. (id: ' + gateway._id + ')')
-        
+
         Type.getTypeByNameAndKind(newGateway.type,newGateway.kind,(err, type) =>{
             if (err) return callback(err);
             // If specified type does not exist, return an err
             if (!site) return callback('Cant add gateway. Ivalid type specified.');
             newGateway.type = type._id;
 
-            Mangufacturer.getManufacturerByName(newGateway.manufacturer,(err, maufacturer) =>{
+            Manufacturer.getManufacturerByName(newGateway.manufacturer,(err, maufacturer) =>{
                 if (err) return callback(err);
                 // If specified type does not exist, return an err
                 if (!site) return callback('Cant add gateway. Ivalid type specified.');
                 newGateway.manufacturer = maufacturer._id;
-        
+
                 Site.getSiteByName(newGateway.site,(err, site) =>{
                     if (err) return callback(err);
                     // If specified site does not exist, return an err
@@ -79,7 +79,7 @@ module.exports.addGateway = function(newGateway, callback) {
                     // If No parent gateway specified, save new gateway.
                      if (!newGateway.parentGateway) {
                         site.gateways.push(newGateway._id);
-                        return newGateway.save(callback);          
+                        return newGateway.save(callback);
                      }
                      // Else get parent gateway
                     Gateway.getGatewayByName(newGateway.parentGateway, (err, parentGateway) => {
@@ -88,19 +88,19 @@ module.exports.addGateway = function(newGateway, callback) {
                         if (!parentGateway) return callback('Cant add gateway. Ivalid parent gateway specified.');
                         // Else, change  new gateway's parent gateway to the parent gateways actual id
                         newGateway.parentGateway = parentGateway._id;
-                        // Add the new gateway to the site's gateways 
+                        // Add the new gateway to the site's gateways
                         site.gateways.push(newGateway._id);
                         // Add the new gateway to the parent gateways children
                         parentGateway.childGateways.push(newGateway._id);
-                        
+
                         parentGateway.save((err, parentGateway) => {
                             if (err) return callback(err);
                             // Save new gateway
-                            newGateway.save(callback);       
+                            newGateway.save(callback);
                         });
                     });
                 });
-            }); 
+            });
         });
     });
 }
@@ -110,13 +110,13 @@ module.exports.addGateway = function(newGateway, callback) {
 module.exports.addSensor = function(newSensor, callback) {
     Gateway.updateOne({ _id: newSensor.gateway}, {$push: {'sensors': newSensor._id}}, (err, res) => {
         if (res.nModified == 0) return callback('No such gateway ' + newSensor.gateway);
-        callback(null, res);        
-    });    
+        callback(null, res);
+    });
 }
 
 module.exports.addChildGateway = function(newGateway, callback) {
     Gateway.updateOne({ _id: newGateway.parentGateway}, {$push: {'childGateways': newGateway._id}}, (err, res) => {
         if (res.nModified == 0) return callback('No such gateway ' + newGateway.parentGateway);
-        callback(null, res);        
-    });    
+        callback(null, res);
+    });
 }
