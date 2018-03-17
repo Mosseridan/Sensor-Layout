@@ -4,10 +4,11 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const Gateway = require('../models/gateway-model');
+const Site = require('../models/site-model');
 
 // Add Gateway
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    
+
     const newGateway = new Gateway({
         'name': req.body.name,
         'type': req.body.type,
@@ -22,7 +23,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         if (err) return res.json({ success: false , msg: 'Failed to add sensor: ' +  err });
         res.json({ success: true, gateway: gateway });
     });
-       
+
 });
 
 // Get All Gateways
@@ -30,7 +31,7 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     Site.getAllGateways((err, gateways) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all gateways: ' +  err });
         res.json({ success: true, data: gateways });
-    });      
+    });
 });
 
 module.exports = router;
