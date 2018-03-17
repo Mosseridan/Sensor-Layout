@@ -6,12 +6,12 @@
     <input matInput placeholder="Display Name" value="{{displayName}}">
   </mat-form-field>
 
-  <app-auto-complete [optionsSourceUrl]="types/all" [placeHolder]="'Type'" #type></app-auto-complete> 
+  <app-auto-complete [optionsSourceUrl]="types/all" [placeHolder]="'Type'" #type></app-auto-complete>
   <app-auto-complete [optionsSourceUrl]="manufacturers/all" [placeHolder]="'Manufacturer'" #manufacturer></app-auto-complete>
   <app-auto-complete [optionsSourceUrl]="protocols/all" [placeHolder]="'Protocol'" #protocol></app-auto-complete>
   <app-auto-complete [optionsSourceUrl]="gateways/all"  [placeHolder]="'Gateway'" #gateway></app-auto-complete>
-  <app-auto-complete [optionsSourceUrl]="site/all"  [placeHolder]="'Site'" #site></app-auto-complete>
-    
+  <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" #site></app-auto-complete>
+
   <input type="submit" class="btn btn-primary" value="Add">
 
 </form>
