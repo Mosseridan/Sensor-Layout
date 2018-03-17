@@ -72,13 +72,13 @@ module.exports.addGateway = function(newGateway, callback) {
             Manufacturer.getManufacturerByName(newGateway.manufacturer,(err, maufacturer) =>{
                 if (err) return callback(err);
                 // If specified type does not exist, return an err
-                if (!maufacturer) return callback('Cant add gateway. Ivalid type specified.');
+                if (!maufacturer) return callback('Cant add gateway. Invalid manufacturer specified.');
                 newGateway.manufacturer = maufacturer._id;
 
                 Site.getSiteByName(newGateway.site,(err, site) =>{
                     if (err) return callback(err);
                     // If specified site does not exist, return an err
-                    if (!site) return callback('Cant add gateway. Ivalid site specified.');
+                    if (!site) return callback('Cant add gateway. Invalid site specified.');
                     newGateway.site = site._id;
 
                     // If No parent gateway specified, save new gateway.
@@ -90,7 +90,7 @@ module.exports.addGateway = function(newGateway, callback) {
                     Gateway.getGatewayByName(newGateway.parentGateway, (err, parentGateway) => {
                         if (err) return callback(err);
                         // If specified parent gateway does not exist, return an err
-                        if (!parentGateway) return callback('Cant add gateway. Ivalid parent gateway specified.');
+                        if (!parentGateway) return callback('Cant add gateway. Invalid parent gateway specified.');
                         // Else, change  new gateway's parent gateway to the parent gateways actual id
                         newGateway.parentGateway = parentGateway._id;
                         // Add the new gateway to the site's gateways
