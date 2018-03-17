@@ -19,7 +19,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
     });
 
     Gateway.addGateway(newGateway, (err, gateway) => {
-        if (err) return res.json({ success: false , msg: 'Failed to add sensor: ' +  err });
+        if (err) return res.json({ success: false , msg: 'Failed to add gateway: ' +  err });
         res.json({ success: true, gateway: gateway });
     });
 
