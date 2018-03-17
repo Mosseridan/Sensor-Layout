@@ -66,13 +66,13 @@ module.exports.addGateway = function(newGateway, callback) {
         Type.getTypeByNameAndKind(newGateway.type,newGateway.kind,(err, type) =>{
             if (err) return callback(err);
             // If specified type does not exist, return an err
-            if (!site) return callback('Cant add gateway. Ivalid type specified.');
+            if (!type) return callback('Cant add gateway. Ivalid type specified.');
             newGateway.type = type._id;
 
             Manufacturer.getManufacturerByName(newGateway.manufacturer,(err, maufacturer) =>{
                 if (err) return callback(err);
                 // If specified type does not exist, return an err
-                if (!site) return callback('Cant add gateway. Ivalid type specified.');
+                if (!maufacturer) return callback('Cant add gateway. Ivalid type specified.');
                 newGateway.manufacturer = maufacturer._id;
 
                 Site.getSiteByName(newGateway.site,(err, site) =>{
