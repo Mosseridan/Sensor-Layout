@@ -4,7 +4,7 @@ const config = require('../config/database');
 // Manufacturer schema
 const ManufacturerSchema = mongoose.Schema({
     name: {
-        manufacturer: String,
+        type: String,
         required: true
     }
 });
@@ -24,7 +24,7 @@ module.exports.getAllManufacturers = function(callback){
     Manufacturer.find().exec(callback);
 }
 
-module.exports.addManufacturer = function(newManufacturer, callback) {    
+module.exports.addManufacturer = function(newManufacturer, callback) {
     if (!newManufacturer.name) return callback('Cant add manufacturer. No name specified');
     Manufacturer.find({'name': newManufacturer.name}, (err, manufacturer)=>{
         if (err) return callback(err);
