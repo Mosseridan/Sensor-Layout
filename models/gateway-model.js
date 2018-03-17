@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
 const Site = require('./site-model');
+const Type = require('./type-model')
 const Manufacturer = require('./manufacturer-model');
 
 // Gateway schema
