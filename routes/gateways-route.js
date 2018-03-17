@@ -4,7 +4,6 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const Gateway = require('../models/gateway-model');
-const Site = require('../models/site-model');
 
 // Add Gateway
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
@@ -28,7 +27,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
 
 // Get All Gateways
 router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Site.getAllGateways((err, gateways) => {
+    Gateway.getAllGateways((err, gateways) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all gateways: ' +  err });
         res.json({ success: true, data: gateways });
     });
