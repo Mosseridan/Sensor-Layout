@@ -22,12 +22,10 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
 
 // Get All Sites
 router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    return res.json({ success: false , msg: 'Failed to get all sites: ' });
-    
     Site.getAllSites((err, sites) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all sites: ' +  err });
         res.json({ success: true, data: sites });
-    });      
+    });
 });
 
 
