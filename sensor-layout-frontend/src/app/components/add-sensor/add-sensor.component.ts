@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 
 export class AddSensorComponent implements OnInit {
 
+
   types = [
     "Automotive",
     "Digital Component",
@@ -40,11 +41,6 @@ export class AddSensorComponent implements OnInit {
     "Other"
   ];
 
-  manufacturers = [
-    "TE Connectivity",
-    "Sonnoff",
-    "Other"
-  ];
 
   protocols = [
     "MQTT",
@@ -52,33 +48,6 @@ export class AddSensorComponent implements OnInit {
     "HTTPS",
     "RAW",
   ];
-
-  gateways = [
-    "gateway1",
-    "gateway2",
-    "gateway3",
-    "gateway4",
-    "gateway5",
-    "gateway6",
-    "gateway7",
-    "gateway8",
-    "gateway9",
-    "gateway10",
-    "gateway11",
-    "gateway12",
-    "gateway13",
-    "gateway14",
-    "gateway15"
-  ];
-
-  sites = [
-    "gateway11",
-    "gateway12",
-    "gateway13",
-    "gateway14",
-    "gateway15"
-  ];
-
 
   displayName: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;

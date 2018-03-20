@@ -26,7 +26,7 @@ module.exports.getAllManufacturers = function(callback){
 
 module.exports.addManufacturer = function(newManufacturer, callback) {
     if (!newManufacturer.name) return callback('Cant add manufacturer. No name specified');
-    Manufacturer.find({'name': newManufacturer.name}, (err, manufacturer)=>{
+    Manufacturer.findOne({'name': newManufacturer.name}, (err, manufacturer)=>{
         if (err) return callback(err);
         if (manufacturer) return callback('Cant add manufacturer. A manufacturer with this name already exists. (id: ' + manufacturer._id + ')');
        newManufacturer.save(callback);

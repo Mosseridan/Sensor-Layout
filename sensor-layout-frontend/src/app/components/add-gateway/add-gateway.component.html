@@ -6,7 +6,7 @@
     <input matInput placeholder="Display Name"  [(ngModel)]="name" name="name">
   </mat-form-field>
   
-  <app-auto-complete [optionsSourceUrl]="'types/gateway'" [placeHolder]="'Type'" #type></app-auto-complete> 
+  <!-- <app-auto-complete [optionsSourceUrl]="'types/by-kind/gateway'" [placeHolder]="'Type'" #type></app-auto-complete>  -->
   <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" #manufacturer></app-auto-complete> 
   <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Site'" #site></app-auto-complete> 
   <app-auto-complete [optionsSourceUrl]="'gateways/all'" [placeHolder]="'Parent Gateway'" #parentGateway></app-auto-complete> 

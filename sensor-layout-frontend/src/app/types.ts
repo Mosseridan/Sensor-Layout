@@ -58,6 +58,46 @@ export function newAutoCompleteOption() {
     return new AutoCompleteOption('');
 }
 
+
+
+// Type Class
+export class Type {
+    _id: string;
+    name: string;
+    // kind: string;
+   
+    constructor(
+        name: string
+        // kind: string,
+    ) {
+        this.name = name;
+        // this.kind = kind;
+    }
+}
+
+export function newType() {
+    return new Type('');
+}
+
+
+// Manufacturer Class
+export class Manufacturer {
+    _id: string;
+    name: string;
+   
+    constructor(
+        name: string,
+    ) {
+        this.name = name;
+    }
+}
+
+export function newManufacturer() {
+    return new Manufacturer('');
+}
+
+
+
 // Sensor Class
 export class Sensor {
     _id: string;
@@ -85,16 +125,18 @@ export class Sensor {
     }
 }
 
+
 export function newSensor() {
     return new Sensor('', '', '', '', '', '');
 }
+
 
 
 // Gateway Class
 export class Gateway {
     _id: string;
     name: string;
-    type: string;
+    // type: string;
     manufacturer: string;
     site: string;
     parentGateway: string;
@@ -103,7 +145,7 @@ export class Gateway {
 
     constructor(
         name: string,
-        type: string,
+        // type: string,
         manufacturer: string,
         site: string,
         parentGateway: string,
@@ -111,7 +153,7 @@ export class Gateway {
         sensors: string[],
     ) {
         this.name = name;
-        this.type = type;
+        // this.type = type;
         this.manufacturer = manufacturer;
         this.site = site;
         this.parentGateway = parentGateway;
@@ -121,7 +163,7 @@ export class Gateway {
 }
 
 export function newGateway() {
-    return new Gateway('', '', '', '', '', [], []);
+    return new Gateway('', '', '', '', [], []);
 }
 
 

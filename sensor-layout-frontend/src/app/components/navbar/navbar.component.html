@@ -17,6 +17,8 @@
     </ul>
     <ul class="navbar-nav my-2">
       <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link" [routerLink]="['/']">Dashboard</a></li>
+      <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link" [routerLink]="['/add-type']">Add Type</a></li>
+      <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link" [routerLink]="['/add-manufacturer']">Add Manufacturer</a></li>      
       <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link" [routerLink]="['/add-sensor']">Add Sensor</a></li>
       <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link" [routerLink]="['/add-gateway']">Add Gateway</a></li>
       <li *ngIf="authService.loggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"><a class="nav-link" [routerLink]="['/add-site']">Add Site</a></li> 

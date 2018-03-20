@@ -14,7 +14,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class AddGatewayComponent implements OnInit {
     name: string;
-    @ViewChild('type') typeAC: AutoCompleteComponent;
+    // @ViewChild('type') typeAC: AutoCompleteComponent;
     @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
     @ViewChild('site') siteAC: AutoCompleteComponent;
     @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
@@ -35,7 +35,7 @@ export class AddGatewayComponent implements OnInit {
       
       let gateway = new Gateway(
         this.name,
-        this.typeAC.selectedValue,
+        // this.typeAC.selectedValue,
         this.manufacturerAC.selectedValue,
         this.siteAC.selectedValue,
         this.parentGatewayAC.selectedValue,

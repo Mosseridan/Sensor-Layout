@@ -10,8 +10,12 @@ const GatewaySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    type: {
-        type: String,
+    // type: {
+    //     type: String,
+    //     required: true
+    // },
+    protocols: {
+        type: [String],
         required: true
     },
     manufacturer: {
@@ -53,7 +57,7 @@ module.exports.getAllGateways = function(callback){
 
 module.exports.addGateway = function(newGateway, callback) {
     if (!newGateway.name) return callback('Cant add gateway. No name specified');
-    if (!newGateway.type) return callback('Cant add gateway. No type specified');
+    // if (!newGateway.type) return callback('Cant add gateway. No type specified');
     if (!newGateway.manufacturer) return callback('Cant add gateway. No manufacturer specified');
     if (!newGateway.site) return callback('Cant add gateway. No site specified');
 
@@ -63,11 +67,11 @@ module.exports.addGateway = function(newGateway, callback) {
         // If so return an err
         if (gateway) return callback('Cant add gateway. A gateway with this name already exists. (id: ' + gateway._id + ')')
 
-        Type.getTypeByNameAndKind(newGateway.type,newGateway.kind,(err, type) =>{
-            if (err) return callback(err);
-            // If specified type does not exist, return an err
-            if (!type) return callback('Cant add gateway. Ivalid type specified.');
-            newGateway.type = type._id;
+        // Type.getTypeByNameAndKind(newGateway.type,newGateway.kind,(err, type) =>{
+        //     if (err) return callback(err);
+        //     // If specified type does not exist, return an err
+        //     if (!type) return callback('Cant add gateway. Ivalid type specified.');
+        //     newGateway.type = type._id;
 
             Manufacturer.getManufacturerByName(newGateway.manufacturer,(err, maufacturer) =>{
                 if (err) return callback(err);
@@ -106,7 +110,7 @@ module.exports.addGateway = function(newGateway, callback) {
                     });
                 });
             });
-        });
+        // });
     });
 }
 
