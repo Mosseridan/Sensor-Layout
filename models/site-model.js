@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+const utils = require('./utils');
 
 // Site schema
 const SiteSchema = mongoose.Schema({
@@ -36,30 +37,14 @@ module.exports.getAllSites = function(callback){
     Site.find().exec(callback);
 }
 
-module.exports.addSite = function(newSite, callback) {    
-    if (!newSite.name) return callback('Cant add site. No name specified');
-    // Does a site with this name already exist?
-    Site.getSiteByName(newSite.name, (err, site) => {
-        if (err) return callback(err);
-        // If so return an err
-        if (site) return callback('Cant add site. A site with this name already exists. (id: ' + site._id + ')')
-        // If No parent site specified, save new site.
-        if (!newSite.parentSite) return newSite.save(callback);          
-        // Else get parent site
-        Site.getSiteByName(newSite.parentSite, (err, parentSite) => {
-            if (err) return callback(err);
-            // If specified parent site does not exist, return an err
-            if (!parentSite) return callback('Cant add site. Ivalid parent site specified.');
-            // Else, change  new site's parent site to the parent sites actual id
-            newSite.parentSite = parentSite._id;
-            // Add the new site to the parent sites children
-            parentSite.childSites.push(newSite._id);
-            parentSite.save((err, parentSite) => {
-                if (err) return callback(err);
-                // Save new site
-                newSite.save(callback);       
-            })
-        });
+module.exports.addSite = function(newSite, onError, onSuccess) {    
+    // If No parent site specified, save new site.
+    if (!newSite.parentSite) return utils.addDoc(Site, newSite, 'site', onError, onSuccess);          
+    utils.validateFieldByName(Site, newSite.parentSite, 'paren site', onError, (parentSite) => {
+        newSite.parentSite = parentSite._id;
+        // Add the new site to the parent sites children
+        Site.addChildSite(parentSite, newSite, onError, 
+            () => utils.addDoc(Site, newSite, 'site', onError, onSuccess));
     });
 }
 

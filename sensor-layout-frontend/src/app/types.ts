@@ -64,20 +64,36 @@ export function newAutoCompleteOption() {
 export class Type {
     _id: string;
     name: string;
-    // kind: string;
    
     constructor(
         name: string
-        // kind: string,
     ) {
         this.name = name;
-        // this.kind = kind;
     }
 }
 
 export function newType() {
     return new Type('');
 }
+
+
+
+// Protocol Class
+export class Protocol {
+    _id: string;
+    name: string;
+   
+    constructor(
+        name: string
+    ) {
+        this.name = name;
+    }
+}
+
+export function newProtocol() {
+    return new Protocol('');
+}
+
 
 
 // Manufacturer Class
@@ -136,26 +152,26 @@ export function newSensor() {
 export class Gateway {
     _id: string;
     name: string;
-    // type: string;
     manufacturer: string;
     site: string;
+    protocols: string[];
     parentGateway: string;
     childGateways: string[];
     sensors: string[];
 
     constructor(
         name: string,
-        // type: string,
         manufacturer: string,
         site: string,
+        protocols: string[],
         parentGateway: string,
         childGateways: string[],
         sensors: string[],
     ) {
         this.name = name;
-        // this.type = type;
         this.manufacturer = manufacturer;
         this.site = site;
+        this.protocols = protocols;
         this.parentGateway = parentGateway;
         this.childGateways = childGateways;
         this.sensors = sensors;
@@ -163,7 +179,7 @@ export class Gateway {
 }
 
 export function newGateway() {
-    return new Gateway('', '', '', '', [], []);
+    return new Gateway('', '', '', [], '', [], []);
 }
 
 

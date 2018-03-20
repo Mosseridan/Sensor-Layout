@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+const utils = require('./utils');
 
 // Protocol schema
 const ProtocolSchema = mongoose.Schema({
@@ -25,10 +26,5 @@ module.exports.getAllProtocols = function(callback){
 }
 
 module.exports.addProtocol = function(newProtocol, callback) {
-    if (!newProtocol.name) return callback('Cant add protocol. No name specified');
-    Protocol.findOne({'name': newProtocol.name}, (err, protocol)=>{
-        if (err) return callback(err);
-        if (protocol) return callback('Cant add protocol. A protocol with this name already exists. (id: ' + protocol._id + ')');
-       newProtocol.save(callback);
-    });
+    utils.addDoc(Protocol, newProtocol, 'protocol', callback);    
 }

@@ -14,10 +14,10 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         'childSites': [],
     });
 
-    Site.addSite(newSite, (err, site) => {
-        if (err) return res.json({ success: false , msg: 'Failed to add site: ' +  err });
-        res.json({ success: true, data: site });
-    });
+    Site.addSite(newSite,
+        (err) => res.json({ success: false , msg: 'Failed to add site: ' +  err }), // onError
+        (site) => res.json({ success: true, data: site }) // onSuccess
+    );
 });
 
 // Get All Sites

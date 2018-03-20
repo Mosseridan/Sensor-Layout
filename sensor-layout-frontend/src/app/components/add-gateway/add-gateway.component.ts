@@ -14,7 +14,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class AddGatewayComponent implements OnInit {
     name: string;
-    // @ViewChild('type') typeAC: AutoCompleteComponent;
+    protocols: string[];
     @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
     @ViewChild('site') siteAC: AutoCompleteComponent;
     @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
@@ -31,18 +31,15 @@ export class AddGatewayComponent implements OnInit {
     }
   
     onSubmit(){ 
-  
-      
       let gateway = new Gateway(
         this.name,
-        // this.typeAC.selectedValue,
         this.manufacturerAC.selectedValue,
         this.siteAC.selectedValue,
+        this.protocols,
         this.parentGatewayAC.selectedValue,
         [],
         []
       );
-  
   
       console.log('@@@',gateway,'@@@');
       this.authService.post('gateways/add',gateway).subscribe((res) => {

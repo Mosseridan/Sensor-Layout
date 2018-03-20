@@ -27,6 +27,7 @@ import { AddSiteComponent } from './components/add-site/add-site.component';
 import { AutoCompleteComponent } from './components/auto-complete/auto-complete.component';
 import { AddTypeComponent } from './components/add-type/add-type.component';
 import { AddManufacturerComponent } from './components/add-manufacturer/add-manufacturer.component';
+import { AddProtocolComponent } from './components/add-protocol/add-protocol.component';
 
 
 const appRoutes = [
@@ -34,6 +35,7 @@ const appRoutes = [
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent, canActivate:[AuthGuard]},
   {path: 'add-type', component: AddTypeComponent, canActivate:[AuthGuard]},  
+  {path: 'add-protocol', component: AddProtocolComponent, canActivate:[AuthGuard]},    
   {path: 'add-manufacturer', component: AddManufacturerComponent, canActivate:[AuthGuard]},
   {path: 'add-sensor', component: AddSensorComponent, canActivate:[AuthGuard]},
   {path: 'add-gateway', component: AddGatewayComponent, canActivate:[AuthGuard]},
@@ -55,6 +57,7 @@ const appRoutes = [
     AutoCompleteComponent,
     AddTypeComponent,
     AddManufacturerComponent,
+    AddProtocolComponent,
   ],
   imports: [
     BrowserModule,

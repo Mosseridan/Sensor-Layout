@@ -7,7 +7,6 @@ import { AuthService } from '../../services/auth/auth.service';
 import { ValidationService } from '../../services/validation/validation.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-
 @Component({
   selector: 'app-add-site',
   templateUrl: './add-site.component.html',

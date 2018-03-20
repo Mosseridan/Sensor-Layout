@@ -1,19 +1,18 @@
 import { Component, OnInit,  ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Type, newType } from '../../types';
+import { Protocol, newProtocol } from '../../types';
 import { FormControl } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { ValidationService } from '../../services/validation/validation.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
-
 @Component({
-  selector: 'app-add-type',
-  templateUrl: './add-type.component.html',
-  styleUrls: ['./add-type.component.css']
+  selector: 'app-add-protocol',
+  templateUrl: './add-protocol.component.html',
+  styleUrls: ['./add-protocol.component.css']
 })
-export class AddTypeComponent implements OnInit {
+export class AddProtocolComponent implements OnInit {
 
   name: string;
  
@@ -29,16 +28,16 @@ export class AddTypeComponent implements OnInit {
   }
 
   onSubmit(){     
-    let type = new Type(this.name);
+    let protocol = new Protocol(this.name);
 
-    console.log('@@@',type,'@@@');
-    this.authService.post('types/add',type).subscribe((res) => {
+    console.log('@@@',protocol,'@@@');
+    this.authService.post('protocols/add',protocol).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});        
       }
-      console.log("Added Type: ",res.data);
-      this.flashMessage.show("Type Added Successfully", {cssClass: 'alert-success', timeout: 5000}); 
+      console.log("Added Protocol: ",res.data);
+      this.flashMessage.show("Protocol Added Successfully", {cssClass: 'alert-success', timeout: 5000}); 
       
       this.router.navigate(['/']);    
     });

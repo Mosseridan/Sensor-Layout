@@ -10,9 +10,9 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
 
     const newGateway = new Gateway({
         'name': req.body.name,
-        // 'type': req.body.type,
         'manufacturer': req.body.manufacturer,
         'site': req.body.site,
+        'protocols': req.body.protocols,
         'parentGateway': req.body.parentGateway,
         'subGateways': [],
         'sensors': [],
