@@ -10,6 +10,16 @@ exports.contains = function(model, doc, onError, onTrue, onFalse) {
 }
 
 
+exports.containsById = function(model, id, onError, onTrue, onFalse) {
+    if (!id) return onError('No id specified.');
+    model.findOne({ '_id': id }, (err, doc) => {
+        if(err) return onErr(err);
+        if(doc) return onTrue(doc);
+        return onFalse();
+    });
+}
+
+
 exports.containsByName = function(model, name, onError, onTrue, onFalse) {
     if (!name) return onError('No name specified.');
     model.findOne({ 'name': name }, (err, doc) => {
@@ -31,6 +41,16 @@ exports.validateField = function(model, field, fieldKind, onError, onSuccess) {
     );
 }
 
+exports.validateFieldById = function(model, namide, fieldKind, onError, onSuccess) {
+    utils.containsById(
+        model, // model
+        id, // id
+        onError, // onError
+        onSuccess, //onTrue
+        () => onError('Invalid '+ fieldKind +' specified: '+ name +'.') //onFalse
+    );
+}
+
 
 exports.validateFieldByName = function(model, name, fieldKind, onError, onSuccess) {
     utils.containsByName(
@@ -40,6 +60,20 @@ exports.validateFieldByName = function(model, name, fieldKind, onError, onSucces
         onSuccess, //onTrue
         () => onError('Invalid '+ fieldKind +' specified: '+ name +'.') //onFalse
     );
+}
+
+
+exports.validateFields = function(model, fields, fieldKind, onError, onSuccess) {
+    // TODO: IMPLEMENT THIS.
+    onSuccess();
+    // if (!field) return onError('No '+ fieldKind +' specified.');
+    // utils.contains(
+    //     model, // model
+    //     field, // doc
+    //     onError, // onError
+    //     onSuccess, //onTrue
+    //     () => onError('Invalid '+ fieldKind +' specified: '+ field +'.') //onFalse
+    // );
 }
 
 
