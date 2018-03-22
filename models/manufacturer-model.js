@@ -25,6 +25,6 @@ module.exports.getAllManufacturers = function(callback){
     Manufacturer.find().exec(callback);
 }
 
-module.exports.addManufacturer = function(newManufacturer, callback) {
-    utils.addDoc(Manufacturer, newManufacturer, 'manufacturer', callback);
+module.exports.addManufacturer = function(newManufacturer, onError, onSuccess) {
+    utils.addDoc(Manufacturer, newManufacturer, 'manufacturer', onError, onSuccess);
 }

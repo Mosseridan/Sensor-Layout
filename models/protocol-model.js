@@ -25,6 +25,6 @@ module.exports.getAllProtocols = function(callback){
     Protocol.find().exec(callback);
 }
 
-module.exports.addProtocol = function(newProtocol, callback) {
-    utils.addDoc(Protocol, newProtocol, 'protocol', callback);    
+module.exports.addProtocol = function(newProtocol, onError, onSuccess) {
+    utils.addDoc(Protocol, newProtocol, 'protocol', onError, onSuccess);    
 }

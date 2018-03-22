@@ -7,22 +7,20 @@ const Gateway = require('../models/gateway-model');
 
 // Add Gateway
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-
     const newGateway = new Gateway({
         'name': req.body.name,
         'manufacturer': req.body.manufacturer,
-        'site': req.body.site,
+        'site': req.body.site._id,
         'protocols': req.body.protocols,
-        'parentGateway': req.body.parentGateway,
+        'parentGateway': req.body.parentGateway._id,
         'subGateways': [],
         'sensors': [],
     });
 
-    Gateway.addGateway(newGateway, (err, gateway) => {
-        if (err) return res.json({ success: false , msg: 'Failed to add gateway: ' +  err });
-        res.json({ success: true, gateway: gateway });
-    });
-
+    Gateway.addGateway(newGateway,
+        (err) => res.json({ success: false , msg: 'Failed to add gateway: ' +  err }), // onError
+        (gateway) => res.json({ success: true, data: gateway }) // onSuccess
+    );
 });
 
 // Get All Gateways

@@ -16,7 +16,7 @@ const SensorSchema = mongoose.Schema({
        type: String,
        required: true
     },
-    protocol: {
+    protocols: {
         type: String,
         required: true
     },
@@ -41,13 +41,20 @@ module.exports.getSensorByName = function(name, callback){
     Sensor.findOne({'name': name}, callback);
 }
 
-module.exports.addSensor = function(newSensor, callback){
-    Site.getSiteById(newSensor.site, (err, site) => {
-        if (err) return callback(err);
-        if (!site) return callback('No such site' + newSensor.site);
-        Gateway.addSensor(newSensor, (err, res) => {
-            if (err) return callback(err);
-            newSensor.save(callback)
-        });
-    });
+module.exports.addSensor = function(newSensor, onError, onSuccess) {
+    utils.validateField(Type, newSensor.type, 'type', onError, (type) => 
+        utils.validateField(Maufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) => 
+            utils.validateFields(Protocol, newSensor.protocols, 'protocol', onError, () =>
+                utils.validateFieldById(Gateway, newSensor.gateway, 'gateway', onError, (gateway) => 
+                    utils.validateFieldById(Site, newSensor.site, 'site', onError, (site) => 
+                        Gateway.addSensor(newSensor, onError, () =>
+                            Site.addSensor(newSensor, onError, () =>
+                                utils.addDoc(Sensor, newSensor, 'sensor', onError, onSuccess)
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    );
 }

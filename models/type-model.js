@@ -24,6 +24,6 @@ module.exports.getAllTypes = function(callback){
     Type.find().exec(callback);
 }
 
-module.exports.addType = function(newType, callback) {
-    utils.addDoc(Type, newType, 'type', callback);
+module.exports.addType = function(newType, onError, onSuccess) {
+    utils.addDoc(Type, newType, 'type', onError, onSuccess);
 }

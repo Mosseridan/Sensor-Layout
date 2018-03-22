@@ -51,8 +51,9 @@ module.exports.getAllGateways = function(callback){
     Gateway.find().exec(callback);
 }
 
+
 module.exports.addGateway = function(newGateway, onError, onSuccess) {
-    utils.validateField(Gateway, newGateway.manufacturer, 'manufacturer', onError, (maufacturer) => {
+    utils.validateField(Manufacturer, newGateway.manufacturer, 'manufacturer', onError, (maufacturer) => 
         utils.validateFieldById(Site, newGateway.site, 'site', onError, (site) =>
             utils.validateFields(Protocol, newGateway.protocols, onError, () => {
                 // If No parent gateway specified, save new gateway.    
@@ -62,11 +63,12 @@ module.exports.addGateway = function(newGateway, onError, onSuccess) {
                 // Else get parent gateway
                 else
                     utils.validateFieldById(Gateway, newGateway.parentGateway, 'parent gateway', onError, (parentGateway) => 
-                        Gateway.addChildGateway(newGateway, onError, () =>
-                            utils.addDoc(Gateway, newGateway, 'gateway', onError, onSuccess)));   
+                        Site.addGateway(newGateway, onError, () =>    
+                            Gateway.addChildGateway(newGateway, onError, () =>
+                                utils.addDoc(Gateway, newGateway, 'gateway', onError, onSuccess))));   
             })
-        );
-    });
+        )
+    );
 }
 
 

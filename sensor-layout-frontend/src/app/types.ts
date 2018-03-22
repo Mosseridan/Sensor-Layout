@@ -120,7 +120,7 @@ export class Sensor {
     name: string;
     type: string;
     manufacturer: string;
-    protocol: string;    
+    protocols: string;    
     gateway: string;
     site: string;
 
@@ -128,14 +128,14 @@ export class Sensor {
         name: string,
         type: string,
         manufacturer: string,
-        protocol: string,
+        protocols: string,
         gateway: string,
         site: string        
     ) {
         this.name = name;
         this.type = type;
         this.manufacturer = manufacturer;
-        this.protocol = protocol;        
+        this.protocols = protocols;        
         this.gateway = gateway;
         this.site = site;
     }

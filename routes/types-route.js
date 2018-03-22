@@ -12,10 +12,10 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         'name': req.body.name
     });
 
-    Type.addType(newType, (err, type) => {
-        if (err) return res.json({ success: false , msg: 'Failed to add type: ' +  err });
-        res.json({ success: true, data: type });
-    });
+    Type.addType(newType,
+        (err) => res.json({ success: false , msg: 'Failed to add type: ' +  err }), // onError
+        (type) => res.json({ success: true, data: type }) // onSuccess
+    );
 });
 
 // Get All Types

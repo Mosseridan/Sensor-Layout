@@ -40,12 +40,11 @@ module.exports.getAllSites = function(callback){
 module.exports.addSite = function(newSite, onError, onSuccess) {    
     // If No parent site specified, save new site.
     if (!newSite.parentSite) return utils.addDoc(Site, newSite, 'site', onError, onSuccess);          
-    utils.validateFieldById(Site, newSite.parentSite, 'paren site', onError, (parentSite) => {
-        newSite.parentSite = parentSite._id;
+    utils.validateFieldById(Site, newSite.parentSite, 'paren site', onError, (parentSite) => 
         // Add the new site to the parent sites children
         Site.addChildSite(newSite, onError, 
-            () => utils.addDoc(Site, newSite, 'site', onError, onSuccess));
-    });
+            () => utils.addDoc(Site, newSite, 'site', onError, onSuccess))
+    );
 }
 
 module.exports.addGateway = function(newGateway, onError, onSuccess) {

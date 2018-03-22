@@ -41,7 +41,7 @@ exports.validateField = function(model, field, fieldKind, onError, onSuccess) {
     );
 }
 
-exports.validateFieldById = function(model, namide, fieldKind, onError, onSuccess) {
+exports.validateFieldById = function(model, id, fieldKind, onError, onSuccess) {
     utils.containsById(
         model, // model
         id, // id

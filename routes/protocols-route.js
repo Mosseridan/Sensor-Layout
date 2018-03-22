@@ -11,10 +11,10 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         'name': req.body.name
     });
 
-    Protocol.addProtocol(newProtocol, (err, protocol) => {
-        if (err) return res.json({ success: false , msg: 'Failed to add protocol: ' +  err });
-        res.json({ success: true, data: protocol });
-    });
+    Protocol.addProtocol(newType,
+        (err) => res.json({ success: false , msg: 'Failed to add protocol: ' +  err }), // onError
+        (protocol) => res.json({ success: true, data: protocol }) // onSuccess
+    );
 });
 
 // Get All Protocols
