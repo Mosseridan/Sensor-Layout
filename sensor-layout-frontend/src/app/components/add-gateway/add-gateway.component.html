@@ -6,9 +6,9 @@
     <input matInput placeholder="Name"  [(ngModel)]="name" name="name">
   </mat-form-field>
   
-  <app-auto-complete [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" #protocols></app-auto-complete> 
   <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" #manufacturer></app-auto-complete> 
   <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Site'" #site></app-auto-complete> 
+  <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" #protocols></app-multiple-choice>  
   <app-auto-complete [optionsSourceUrl]="'gateways/all'" [placeHolder]="'Parent Gateway'" #parentGateway></app-auto-complete> 
 
   <input type="submit" class="btn btn-primary" value="Add">

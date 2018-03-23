@@ -1,6 +1,11 @@
 const mongoose = require('mongoose');
 const config = require('../config/database');
+const Type = require('./type-model');
+const Manufacturer = require('./manufacturer-model');
+const Protocol = require('./protocol-model');
+const Gateway = require('./gateway-model');
 const Site = require('./site-model');
+const utils = require('./utils');
 
 // Sensor schema
 const SensorSchema = mongoose.Schema({
@@ -9,23 +14,23 @@ const SensorSchema = mongoose.Schema({
         required: true
     },
     type: {
-        type: String,
+        type: utils.NamedObject,
         required: true
     },
     manufacturer: {
-       type: String,
+       type: utils.NamedObject,
        required: true
     },
     protocols: {
-        type: String,
+        type: [utils.NamedObject],
         required: true
     },
     gateway: {
-        type: String,
+        type: utils.NamedObject,
         required: true
     },
     site: {
-        type: String,
+        type: utils.NamedObject,
         required: true
     }
 });
@@ -43,10 +48,10 @@ module.exports.getSensorByName = function(name, callback){
 
 module.exports.addSensor = function(newSensor, onError, onSuccess) {
     utils.validateField(Type, newSensor.type, 'type', onError, (type) => 
-        utils.validateField(Maufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) => 
+        utils.validateField(Manufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) => 
             utils.validateFields(Protocol, newSensor.protocols, 'protocol', onError, () =>
-                utils.validateFieldById(Gateway, newSensor.gateway, 'gateway', onError, (gateway) => 
-                    utils.validateFieldById(Site, newSensor.site, 'site', onError, (site) => 
+                utils.validateField(Gateway, newSensor.gateway, 'gateway', onError, (gateway) => 
+                    utils.validateField(Site, newSensor.site, 'site', onError, (site) => 
                         Gateway.addSensor(newSensor, onError, () =>
                             Site.addSensor(newSensor, onError, () =>
                                 utils.addDoc(Sensor, newSensor, 'sensor', onError, onSuccess)

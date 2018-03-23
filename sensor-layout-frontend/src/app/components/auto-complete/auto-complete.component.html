@@ -9,8 +9,8 @@
     [(ngModel)]="selectedValue"
   >
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-    <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-      {{ option }}
+    <mat-option *ngFor="let option of filteredOptions | async; let i = index" [value]="option.name">
+      {{ option.name }}
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>

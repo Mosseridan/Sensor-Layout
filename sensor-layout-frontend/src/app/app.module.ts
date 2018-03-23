@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatAutocompleteModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule } from '@angular/material';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -28,6 +28,7 @@ import { AutoCompleteComponent } from './components/auto-complete/auto-complete.
 import { AddTypeComponent } from './components/add-type/add-type.component';
 import { AddManufacturerComponent } from './components/add-manufacturer/add-manufacturer.component';
 import { AddProtocolComponent } from './components/add-protocol/add-protocol.component';
+import { MultipleChoiceComponent } from './components/multiple-choice/multiple-choice.component';
 
 
 const appRoutes = [
@@ -58,6 +59,7 @@ const appRoutes = [
     AddTypeComponent,
     AddManufacturerComponent,
     AddProtocolComponent,
+    MultipleChoiceComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +69,7 @@ const appRoutes = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatAutocompleteModule
+    MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule
   ],
   providers: [
     AuthService,

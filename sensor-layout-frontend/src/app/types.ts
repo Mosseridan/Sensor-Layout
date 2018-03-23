@@ -48,15 +48,17 @@ export class AutoCompleteOption {
     name: string;
 
     constructor(
+        _id: string,
         name: string,
     ) {
+        this._id = _id;
         this.name = name;
     }
 }
 
-export function newAutoCompleteOption() {
-    return new AutoCompleteOption('');
-}
+// export function newAutoCompleteOption() {
+//     return new AutoCompleteOption('');
+// }
 
 
 
@@ -118,19 +120,19 @@ export function newManufacturer() {
 export class Sensor {
     _id: string;
     name: string;
-    type: string;
-    manufacturer: string;
-    protocols: string;    
-    gateway: string;
-    site: string;
+    type: AutoCompleteOption;
+    manufacturer: AutoCompleteOption;
+    protocols: AutoCompleteOption[];    
+    gateway: AutoCompleteOption;
+    site: AutoCompleteOption;
 
     constructor(
         name: string,
-        type: string,
-        manufacturer: string,
-        protocols: string,
-        gateway: string,
-        site: string        
+        type: AutoCompleteOption,
+        manufacturer: AutoCompleteOption,
+        protocols: AutoCompleteOption[],
+        gateway: AutoCompleteOption,
+        site: AutoCompleteOption        
     ) {
         this.name = name;
         this.type = type;
@@ -142,9 +144,9 @@ export class Sensor {
 }
 
 
-export function newSensor() {
-    return new Sensor('', '', '', '', '', '');
-}
+// export function newSensor() {
+//     return new Sensor(newAutoCompleteOption, , '', '', '', '');
+// }
 
 
 
@@ -152,21 +154,21 @@ export function newSensor() {
 export class Gateway {
     _id: string;
     name: string;
-    manufacturer: string;
-    site: string;
-    protocols: string[];
-    parentGateway: string;
-    childGateways: string[];
-    sensors: string[];
+    manufacturer: AutoCompleteOption;
+    site: AutoCompleteOption;
+    protocols: AutoCompleteOption[];
+    parentGateway: AutoCompleteOption;
+    childGateways: AutoCompleteOption[];
+    sensors: AutoCompleteOption[];
 
     constructor(
         name: string,
-        manufacturer: string,
-        site: string,
-        protocols: string[],
-        parentGateway: string,
-        childGateways: string[],
-        sensors: string[],
+        manufacturer: AutoCompleteOption,
+        site: AutoCompleteOption,
+        protocols: AutoCompleteOption[],
+        parentGateway: AutoCompleteOption,
+        childGateways: AutoCompleteOption[],
+        sensors: AutoCompleteOption[],
     ) {
         this.name = name;
         this.manufacturer = manufacturer;
@@ -178,24 +180,24 @@ export class Gateway {
     }
 }
 
-export function newGateway() {
-    return new Gateway('', '', '', [], '', [], []);
-}
+// export function newGateway() {
+//     return new Gateway('', '', '', [], '', [], []);
+// }
 
 
 // Site Class
 export class Site {
     _id: string;
     name: string;
-    gateways: string[];
-    parentSite: string;
-    childSites: string[];
+    gateways: AutoCompleteOption[];
+    parentSite: AutoCompleteOption;
+    childSites: AutoCompleteOption[];
 
     constructor(
         name: string,
-        gateways: string[],
-        parentSite: string,
-        childSites: string[]
+        gateways: AutoCompleteOption[],
+        parentSite: AutoCompleteOption,
+        childSites: AutoCompleteOption[]
     ) {
         this.name = name;
         this.gateways = gateways;
@@ -204,6 +206,6 @@ export class Site {
     }
 }
 
-export function newSite() {
-    return new Site('', [], '', []);
-}
+// export function newSite() {
+//     return new Site('', [], '', []);
+// }

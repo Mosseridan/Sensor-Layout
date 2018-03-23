@@ -1,8 +1,9 @@
 import { Component, OnInit,  ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Gateway, newGateway } from '../../types';
+import { Gateway, AutoCompleteOption } from '../../types';
 import { FormControl } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
+import { MultipleChoiceComponent } from '../multiple-choice/multiple-choice.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { ValidationService } from '../../services/validation/validation.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -14,9 +15,10 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class AddGatewayComponent implements OnInit {
     name: string;
-    protocols: string[];
+    protocols: AutoCompleteOption[];
     @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
     @ViewChild('site') siteAC: AutoCompleteComponent;
+    @ViewChild('protocols') protocolsAC: MultipleChoiceComponent;    
     @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
 
     constructor(
@@ -33,10 +35,10 @@ export class AddGatewayComponent implements OnInit {
     onSubmit(){ 
       let gateway = new Gateway(
         this.name,
-        this.manufacturerAC.selectedValue,
-        this.siteAC.selectedValue,
-        this.protocols,
-        this.parentGatewayAC.selectedValue,
+        this.manufacturerAC.getSelectedOption(),
+        this.siteAC.getSelectedOption(),
+        this.protocolsAC.getSelectedOptions(),
+        this.parentGatewayAC.getSelectedOption(),
         [],
         []
       );

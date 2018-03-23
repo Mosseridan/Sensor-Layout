@@ -9,16 +9,16 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { AutoCompleteOption } from '../../types';
 
 @Component({
-  selector: 'app-auto-complete',
-  templateUrl: './auto-complete.component.html',
-  styleUrls: ['./auto-complete.component.css']
+  selector: 'app-multiple-choice',
+  templateUrl: './multiple-choice.component.html',
+  styleUrls: ['./multiple-choice.component.css']
 })
-export class AutoCompleteComponent implements OnInit {
+export class MultipleChoiceComponent implements OnInit {
  myControl: FormControl = new FormControl();
   @Input() optionsSourceUrl;
   @Input() placeHolder;
   options: AutoCompleteOption[];
-  selectedValue: string;
+  selectedValues: AutoCompleteOption[];
   filteredOptions: Observable<AutoCompleteOption[]>;
  
   constructor(
@@ -53,7 +53,7 @@ export class AutoCompleteComponent implements OnInit {
     return this.options.filter(option => option.name.toLowerCase().indexOf(val.toLowerCase()) === 0).sort();
   }
 
-  getSelectedOption(): AutoCompleteOption {
-    return this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
+  getSelectedOptions(): AutoCompleteOption[] {
+    return this.selectedValues;
   }
 }

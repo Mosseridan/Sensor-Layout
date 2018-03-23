@@ -10,7 +10,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
     const newSite = new Site({
         'name': req.body.name,
         'gateways': [],
-        'parentSite': req.body.parentSite._id,
+        'parentSite': req.body.parentSite,
         'childSites': [],
     });
 

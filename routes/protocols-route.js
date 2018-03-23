@@ -11,7 +11,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         'name': req.body.name
     });
 
-    Protocol.addProtocol(newType,
+    Protocol.addProtocol(newProtocol,
         (err) => res.json({ success: false , msg: 'Failed to add protocol: ' +  err }), // onError
         (protocol) => res.json({ success: true, data: protocol }) // onSuccess
     );

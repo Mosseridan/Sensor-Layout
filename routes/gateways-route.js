@@ -10,15 +10,18 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
     const newGateway = new Gateway({
         'name': req.body.name,
         'manufacturer': req.body.manufacturer,
-        'site': req.body.site._id,
+        'site': req.body.site,
         'protocols': req.body.protocols,
-        'parentGateway': req.body.parentGateway._id,
+        'parentGateway': req.body.parentGateway,
         'subGateways': [],
         'sensors': [],
     });
 
     Gateway.addGateway(newGateway,
-        (err) => res.json({ success: false , msg: 'Failed to add gateway: ' +  err }), // onError
+        (err) => { // onError
+            console.log(err);
+            res.json({ success: false , msg: 'Failed to add gateway: ' +  err })
+        }, 
         (gateway) => res.json({ success: true, data: gateway }) // onSuccess
     );
 });

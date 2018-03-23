@@ -1,7 +1,8 @@
 import { Component, OnInit,  ViewChild } from '@angular/core';
-import { Sensor, newSensor } from '../../types';
+import { Sensor,  } from '../../types';
 import { FormControl } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
+import { MultipleChoiceComponent } from '../multiple-choice/multiple-choice.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { ValidationService } from '../../services/validation/validation.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
@@ -52,7 +53,7 @@ export class AddSensorComponent implements OnInit {
   displayName: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
-  @ViewChild('protocol') protocolAC: AutoCompleteComponent;
+  @ViewChild('protocols') protocolsAC: MultipleChoiceComponent;
   @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
   @ViewChild('site') siteAC: AutoCompleteComponent;
 
@@ -70,12 +71,13 @@ export class AddSensorComponent implements OnInit {
 
     let sensor = new Sensor(
       this.displayName,
-      this.typeAC.selectedValue,
-      this.manufacturerAC.selectedValue,
-      this.protocolAC.selectedValue,
-      this.gatewayAC.selectedValue,
-      this.siteAC.selectedValue
+      this.typeAC.getSelectedOption(),
+      this.manufacturerAC.getSelectedOption(),
+      this.protocolsAC.getSelectedOptions(),
+      this.gatewayAC.getSelectedOption(),
+      this.siteAC.getSelectedOption()
     );
+
     console.log('@@@',sensor,'@@@');
     this.authService.post('sensors/add',sensor).subscribe((res) => {
       if(!res.success) {

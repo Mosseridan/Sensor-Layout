@@ -3,7 +3,7 @@ exports.contains = function(model, doc, onError, onTrue, onFalse) {
     if (!doc._id) return onError('No id specified.');
     if (!doc.name) return onError('No name specified.');
     model.findOne({ $or: [{ 'name': doc.name }, { '_id': doc._id }] }, (err, doc) => {
-        if(err) return onErr(err);
+        if(err) return onError(err);
         if(doc) return onTrue(doc);
         return onFalse();
     });
@@ -13,7 +13,7 @@ exports.contains = function(model, doc, onError, onTrue, onFalse) {
 exports.containsById = function(model, id, onError, onTrue, onFalse) {
     if (!id) return onError('No id specified.');
     model.findOne({ '_id': id }, (err, doc) => {
-        if(err) return onErr(err);
+        if(err) return onError(err);
         if(doc) return onTrue(doc);
         return onFalse();
     });
@@ -23,7 +23,7 @@ exports.containsById = function(model, id, onError, onTrue, onFalse) {
 exports.containsByName = function(model, name, onError, onTrue, onFalse) {
     if (!name) return onError('No name specified.');
     model.findOne({ 'name': name }, (err, doc) => {
-        if(err) return onErr(err);
+        if(err) return onError(err);
         if(doc) return onTrue(doc);
         return onFalse();
     });
@@ -32,7 +32,7 @@ exports.containsByName = function(model, name, onError, onTrue, onFalse) {
 
 exports.validateField = function(model, field, fieldKind, onError, onSuccess) {
     if (!field) return onError('No '+ fieldKind +' specified.');
-    utils.contains(
+    this.contains(
         model, // model
         field, // doc
         onError, // onError
@@ -42,7 +42,7 @@ exports.validateField = function(model, field, fieldKind, onError, onSuccess) {
 }
 
 exports.validateFieldById = function(model, id, fieldKind, onError, onSuccess) {
-    utils.containsById(
+    this.containsById(
         model, // model
         id, // id
         onError, // onError
@@ -53,7 +53,7 @@ exports.validateFieldById = function(model, id, fieldKind, onError, onSuccess) {
 
 
 exports.validateFieldByName = function(model, name, fieldKind, onError, onSuccess) {
-    utils.containsByName(
+    this.containsByName(
         model, // model
         name, // name
         onError, // onError
@@ -78,7 +78,7 @@ exports.validateFields = function(model, fields, fieldKind, onError, onSuccess) 
 
 
 exports.addDoc = function(model, doc, docKind, onError, onSuccess) {
-    utils.contains(
+    this.contains(
         model, // model
         doc, // doc
         onError, // onError
@@ -89,3 +89,5 @@ exports.addDoc = function(model, doc, docKind, onError, onSuccess) {
         })
     );
 }
+
+exports.NamedObject = { _id: String, name: String}

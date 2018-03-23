@@ -11,13 +11,16 @@ router.post('/add', (req, res, next) => {//passport.authenticate('jwt', { sessio
         'name': req.body.name,
         'type': req.body.type, 
         'manufacturer': req.body.manufacturer,
-        'protocol':  req.body.protocol,
-        'gateway': req.body.gateway._id, 
-        'site': req.body.site._id,
+        'protocols':  req.body.protocols,
+        'gateway': req.body.gateway, 
+        'site': req.body.site,
     });
 
     Sensor.addSensor(newSensor,
-        (err) => res.json({ success: false , msg: 'Failed to add sensor: ' +  err }), // onError
+        (err) => { // onError
+            console.log(err);
+            res.json({ success: false , msg: 'Failed to add sensor: ' +  err })
+        }, 
         (sensor) => res.json({ success: true, data: sensor }) // onSuccess
     );       
 });

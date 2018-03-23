@@ -1,6 +1,6 @@
 import { Component, OnInit,  ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Site, newSite } from '../../types';
+import { Site } from '../../types';
 import { FormControl } from '@angular/forms';
 import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AuthService } from '../../services/auth/auth.service';
@@ -29,15 +29,12 @@ export class AddSiteComponent implements OnInit {
   }
 
   onSubmit(){ 
-
-    
     let site = new Site(
       this.name,
       [],
-      this.parentSiteAC.selectedValue,
+      this.parentSiteAC.getSelectedOption(),
       []
     );
-
 
     console.log('@@@',site,'@@@');
     this.authService.post('sites/add',site).subscribe((res) => {
@@ -51,5 +48,4 @@ export class AddSiteComponent implements OnInit {
       this.router.navigate(['/']);    
     });
   }
-
 }

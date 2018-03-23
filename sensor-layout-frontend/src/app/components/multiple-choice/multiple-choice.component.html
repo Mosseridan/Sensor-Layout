@@ -1,0 +1,10 @@
+<mat-form-field class="mat-full-width">  
+  <mat-select
+    placeholder="{{placeHolder || 'Pick A Few'}}"
+    [formControl]="myControl"
+    [(ngModel)]="selectedValues"
+    multiple
+  >
+    <mat-option *ngFor="let option of options" [value]="option">{{option.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
