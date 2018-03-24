@@ -90,4 +90,13 @@ exports.addDoc = function(model, doc, docKind, onError, onSuccess) {
     );
 }
 
+exports.getDeleteOnError = function(model, doc, onError) {
+    return (err) =>{
+        model.remove({ _id: doc._id }, (rmErr)  => {
+            if (rmErr) return onError(rmErr);
+            onError(err);
+        });
+    }
+} 
+
 exports.NamedObject = { _id: String, name: String}

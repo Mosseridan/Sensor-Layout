@@ -50,7 +50,7 @@ export class AddSensorComponent implements OnInit {
     "RAW",
   ];
 
-  displayName: string;
+  name: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
   @ViewChild('protocols') protocolsAC: MultipleChoiceComponent;
@@ -70,7 +70,7 @@ export class AddSensorComponent implements OnInit {
   onSubmit(){
 
     let sensor = new Sensor(
-      this.displayName,
+      this.name,
       this.typeAC.getSelectedOption(),
       this.manufacturerAC.getSelectedOption(),
       this.protocolsAC.getSelectedOptions(),

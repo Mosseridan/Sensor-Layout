@@ -56,19 +56,30 @@ module.exports.getAllGateways = function(callback){
 
 
 module.exports.addGateway = function(newGateway, onError, onSuccess) {
+    let deleteOnError = utils.getDeleteOnError(Gateway, newGateway, onError); 
+
     utils.validateField(Manufacturer, newGateway.manufacturer, 'manufacturer', onError, (maufacturer) => 
         utils.validateField(Site, newGateway.site, 'site', onError, (site) =>
             utils.validateFields(Protocol, newGateway.protocols, 'protocol', onError, () => {
                 // If No parent gateway specified, save new gateway.    
-                if (!newGateway.parentGateway) 
-                    Site.addGateway(newGateway, onError, () =>
-                        utils.addDoc(Gateway, newGateway, 'gateway', onError, onSuccess));
+                if (!newGateway.parentGateway) {
+                    utils.addDoc(Gateway, newGateway, 'gateway', onError, () =>
+                        Site.addGateway(newGateway, deleteOnError, onSuccess)     
+                    );
+                }
                 // Else get parent gateway
-                else
+                else {
                     utils.validateField(Gateway, newGateway.parentGateway, 'parent gateway', onError, (parentGateway) => 
-                        Site.addGateway(newGateway, onError, () =>    
-                            Gateway.addChildGateway(newGateway, onError, () =>
-                                utils.addDoc(Gateway, newGateway, 'gateway', onError, onSuccess))));   
+                        utils.addDoc(Gateway, newGateway, 'gateway', onError, () =>  
+                            Site.addGateway(newGateway, deleteOnError, () =>    
+                                Gateway.addChildGateway(newGateway, 
+                                    (err) => Site.removeGateway(newGateway, deleteOnError, () => deleteOnError(err)),  
+                                    onSuccess
+                                )
+                            )
+                        )
+                    );
+                }   
             })
         )
     );
@@ -83,9 +94,23 @@ module.exports.addSensor = function(newSensor, onError, onSuccess) {
 }
 
 
+module.exports.removeSensor = function(sensor, onError, onSuccess) {
+    Gateway.updateOne({ _id: sensor.gateway._id }, {$pull: {'sensors': sensor }}, (err, res) => {
+        if (res.nModified == 0) return onError('No such gateway ' + sensor.gateway);
+        onSuccess();
+    });
+}
+
 module.exports.addChildGateway = function(newGateway, onError, onSuccess) {
     Gateway.updateOne({ _id: newGateway.parentGateway._id }, {$push: {'childGateways': newGateway }}, (err, res) => {
         if (res.nModified == 0) return onError('No such gateway ' + newGateway.parentGateway);
+        onSuccess();
+    });
+}
+
+module.exports.removeChildGateway = function(childGateway, onError, onSuccess) {
+    Gateway.updateOne({ _id: childGateway.parentGateway._id }, {$pull: {'childGateways': childGateway }}, (err, res) => {
+        if (res.nModified == 0) return onError('No such gateway ' + childGateway.parentGateway);
         onSuccess();
     });
 }

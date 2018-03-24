@@ -3,7 +3,7 @@
 <form class="mat-form" (submit)="onSubmit()">
 
   <mat-form-field class="mat-full-width">
-    <input matInput placeholder="Name" value="{{displayName}}">
+    <input matInput placeholder="Name"  [(ngModel)]="name" name="name">
   </mat-form-field>
 
   <app-auto-complete [optionsSourceUrl]="'types/all'" [placeHolder]="'Type'" #type></app-auto-complete>
