@@ -1,8 +1,10 @@
 <br>
 <div class="container">
-  <h2 class="page-header">Add Sensor</h2>
+  <h2 class="page-header">Edit Sensor</h2>
 
   <form class="mat-form" (submit)="onSubmit()">
+
+    <app-auto-complete [optionsSourceUrl]="'sensors/all'" [placeHolder]="'Sensor'" #sensor></app-auto-complete>    
 
     <mat-form-field class="mat-full-width">
       <input matInput placeholder="Name"  [(ngModel)]="name" name="name">

@@ -1,11 +1,14 @@
-<h2 class="page-header">Add Type</h2>
+<br>
+<div class="container">  
+  <h2 class="page-header">Add Type</h2>
 
-<form class="mat-form" (submit)="onSubmit()">
+  <form class="mat-form" (submit)="onSubmit()">
 
-  <mat-form-field class="mat-full-width">
-    <input matInput placeholder="Name"  [(ngModel)]="name" name="name">
-  </mat-form-field>  
-  
-  <input type="submit" class="btn btn-primary" value="Add">
+    <mat-form-field class="mat-full-width">
+      <input matInput placeholder="Name"  [(ngModel)]="name" name="name">
+    </mat-form-field>  
+    
+    <input type="submit" class="btn btn-primary" value="Add">
 
-</form>
+  </form>
+</div>

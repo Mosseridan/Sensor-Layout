@@ -9,39 +9,14 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-add-sensor',
-  templateUrl: './add-sensor.component.html',
-  styleUrls: ['./add-sensor.component.css']
+  selector: 'app-edit-sensor',
+  templateUrl: './edit-sensor.component.html',
+  styleUrls: ['./edit-sensor.component.css']
 })
+export class EditSensorComponent implements OnInit {
 
-export class AddSensorComponent implements OnInit {
-
-
-  types = [
-    "Automotive",
-    "Digital Component",
-    "Flow",
-    "Fluid Property",
-    "Force",
-    "Humidity",
-    "Mass Air Flow",
-    "Multi-Sensor Module",
-    "Photo Optic",
-    "Piezo Film",
-    "Position",
-    "Pressure",
-    "Rate & Inertial",
-    "Scanner & System",
-    "Speed",
-    "Temperature",
-    "Torque",
-    "Traffic",
-    "Ultrasonic",
-    "Vibration",
-    "Water-Level",
-    "Other"
-  ];
-
+  @ViewChild('sensor') sensorAC: AutoCompleteComponent;
+  
   name: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
@@ -71,13 +46,13 @@ export class AddSensorComponent implements OnInit {
     );
 
     console.log('@@@',sensor,'@@@');
-    this.authService.post('sensors/add',sensor).subscribe((res) => {
+    this.authService.post('sensors/edit',sensor).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
       }
-      console.log("Added Sensor: ",res.data);
-      this.flashMessage.show("Sensor Added Successfully", {cssClass: 'alert-success', timeout: 5000});
+      console.log("Edit Sensor: ",res.data);
+      this.flashMessage.show("Sensor Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
 
       this.router.navigate(['/']);
     });
@@ -85,3 +60,4 @@ export class AddSensorComponent implements OnInit {
   }
 
 }
+

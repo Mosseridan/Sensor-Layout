@@ -46,7 +46,7 @@ module.exports.addSite = function(newSite, onError, onSuccess) {
     
     if (!newSite.parentSite) return utils.addDoc(Site, newSite, 'site', onError, onSuccess);          
     utils.validateField(Site, newSite.parentSite, 'parent site', onError, (parentSite) => 
-        utils.addDoc(Site, newSite, 'site', onError, () =>
+        utils.addDoc(Site, newSite, 'site', onError, (site) =>
             Site.addChildSite(newSite, deleteOnError, onSuccess)    
         )   
     );
@@ -56,7 +56,7 @@ module.exports.addSite = function(newSite, onError, onSuccess) {
 module.exports.addSensor = function(newSensor, onError, onSuccess) {
     Site.updateOne({ _id: newSensor.site._id }, {$push: {'sensors': newSensor}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + newSensor.site);
-        onSuccess();        
+        onSuccess(newSensor);        
     });  
 }
 
@@ -71,7 +71,7 @@ module.exports.removeSensor = function(sensor, onError, onSuccess) {
 module.exports.addGateway = function(newGateway, onError, onSuccess) {
     Site.updateOne({ _id: newGateway.site._id }, {$push: {'gateways': newGateway}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + newGateway.site);
-        onSuccess();        
+        onSuccess(newGateway);        
     });  
 }
 
@@ -86,7 +86,7 @@ module.exports.removeGateway = function(gateway, onError, onSuccess) {
 module.exports.addChildSite = function(newSite, onError, onSuccess) {
     Site.updateOne({ _id: newSite.parentSite._id }, {$push: {'childSites': newSite}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + newSite.parentSite);
-        onSuccess();         
+        onSuccess(newGateway);         
     });    
 }
 

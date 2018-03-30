@@ -63,15 +63,15 @@ module.exports.addGateway = function(newGateway, onError, onSuccess) {
             utils.validateFields(Protocol, newGateway.protocols, 'protocol', onError, () => {
                 // If No parent gateway specified, save new gateway.    
                 if (!newGateway.parentGateway) {
-                    utils.addDoc(Gateway, newGateway, 'gateway', onError, () =>
+                    utils.addDoc(Gateway, newGateway, 'gateway', onError, (gateway) =>
                         Site.addGateway(newGateway, deleteOnError, onSuccess)     
                     );
                 }
                 // Else get parent gateway
                 else {
                     utils.validateField(Gateway, newGateway.parentGateway, 'parent gateway', onError, (parentGateway) => 
-                        utils.addDoc(Gateway, newGateway, 'gateway', onError, () =>  
-                            Site.addGateway(newGateway, deleteOnError, () =>    
+                        utils.addDoc(Gateway, newGateway, 'gateway', onError, (gateway) =>  
+                            Site.addGateway(newGateway, deleteOnError, (gateway) =>    
                                 Gateway.addChildGateway(newGateway, 
                                     (err) => Site.removeGateway(newGateway, deleteOnError, () => deleteOnError(err)),  
                                     onSuccess
@@ -89,7 +89,7 @@ module.exports.addGateway = function(newGateway, onError, onSuccess) {
 module.exports.addSensor = function(newSensor, onError, onSuccess) {
     Gateway.updateOne({ _id: newSensor.gateway._id }, {$push: {'sensors': newSensor }}, (err, res) => {
         if (res.nModified == 0) return onError('No such gateway ' + newSensor.gateway);
-        onSuccess();
+        onSuccess(newSensor);
     });
 }
 
@@ -104,7 +104,7 @@ module.exports.removeSensor = function(sensor, onError, onSuccess) {
 module.exports.addChildGateway = function(newGateway, onError, onSuccess) {
     Gateway.updateOne({ _id: newGateway.parentGateway._id }, {$push: {'childGateways': newGateway }}, (err, res) => {
         if (res.nModified == 0) return onError('No such gateway ' + newGateway.parentGateway);
-        onSuccess();
+        onSuccess(newGateway);
     });
 }
 

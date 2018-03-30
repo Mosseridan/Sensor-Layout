@@ -6,7 +6,41 @@ import { HttpModule } from '@angular/http';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule } from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSidenavModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+} from '@angular/material';
+
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -29,16 +63,29 @@ import { AddTypeComponent } from './components/add-type/add-type.component';
 import { AddManufacturerComponent } from './components/add-manufacturer/add-manufacturer.component';
 import { AddProtocolComponent } from './components/add-protocol/add-protocol.component';
 import { MultipleChoiceComponent } from './components/multiple-choice/multiple-choice.component';
-
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { SensorComponent } from './components/sensor/sensor.component';
+import { GatewayComponent } from './components/gateway/gateway.component';
+import { SiteComponent } from './components/site/site.component';
+import { AddElementComponent } from './components/add-element/add-element.component';
+import { EditElementComponent } from './components/edit-element/edit-element.component';
+import { EditSensorComponent } from './components/edit-sensor/edit-sensor.component';
+import { EditGatewayComponent } from './components/edit-gateway/edit-gateway.component';
+import { EditSiteComponent } from './components/edit-site/edit-site.component';
+import { EditTypeComponent } from './components/edit-type/edit-type.component';
+import { EditManufacturerComponent } from './components/edit-manufacturer/edit-manufacturer.component';
+import { EditProtocolComponent } from './components/edit-protocol/edit-protocol.component';
 
 const appRoutes = [
   {path: '', component: DashboardComponent, canActivate:[AuthGuard]},
   {path: 'login', component: LoginComponent },
   {path: 'register', component: RegisterComponent, canActivate:[AuthGuard]},
+  {path: 'add-element', component: AddElementComponent, canActivate:[AuthGuard]},  
+  {path: 'edit-element', component: EditElementComponent, canActivate:[AuthGuard]},    
   {path: 'add-type', component: AddTypeComponent, canActivate:[AuthGuard]},  
   {path: 'add-protocol', component: AddProtocolComponent, canActivate:[AuthGuard]},    
   {path: 'add-manufacturer', component: AddManufacturerComponent, canActivate:[AuthGuard]},
-  {path: 'add-sensor', component: AddSensorComponent, canActivate:[AuthGuard]},
+  {path: 'sensor', component: SensorComponent, canActivate:[AuthGuard]},
   {path: 'add-gateway', component: AddGatewayComponent, canActivate:[AuthGuard]},
   {path: 'add-site', component: AddSiteComponent, canActivate:[AuthGuard]},
   {path: '**', component: PageNotFoundComponent},
@@ -60,6 +107,18 @@ const appRoutes = [
     AddManufacturerComponent,
     AddProtocolComponent,
     MultipleChoiceComponent,
+    SidenavComponent,
+    SensorComponent,
+    GatewayComponent,
+    SiteComponent,
+    AddElementComponent,
+    EditElementComponent,
+    EditSensorComponent,
+    EditGatewayComponent,
+    EditSiteComponent,
+    EditTypeComponent,
+    EditManufacturerComponent,
+    EditProtocolComponent,
   ],
   imports: [
     BrowserModule,
@@ -69,7 +128,38 @@ const appRoutes = [
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatAutocompleteModule, MatSelectModule
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
   ],
   providers: [
     AuthService,

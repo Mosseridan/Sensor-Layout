@@ -59,10 +59,10 @@ module.exports.addSensor = function(newSensor, onError, onSuccess) {
     utils.validateField(Type, newSensor.type, 'type', onError, (type) => 
         utils.validateField(Manufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) => 
             utils.validateFields(Protocol, newSensor.protocols, 'protocol', onError, () =>
-                utils.validateField(Gateway, newSensor.gateway, 'gateway', onError, (gateway) => 
-                    utils.validateField(Site, newSensor.site, 'site', onError, (site) => 
-                        utils.addDoc(Sensor, newSensor, 'sensor', onError, () =>
-                            Gateway.addSensor(newSensor, deleteOnError, () => 
+                utils.validateField(Gateway, newSensor.gateway, 'gateway', onError, () => 
+                    utils.validateField(Site, newSensor.site, 'site', onError, () => 
+                        utils.addDoc(Sensor, newSensor, 'sensor', onError, (sensor) =>
+                            Gateway.addSensor(newSensor, deleteOnError, (sensor) => 
                                 Site.addSensor(newSensor, 
                                     (err) => Gateway.removeSensor(newSensor, deleteOnError, () => deleteOnError(err)),
                                     onSuccess 
