@@ -1,14 +1,18 @@
 <mat-form-field class="mat-full-width" >
-  <input 
-    type="text" 
-    placeholder="{{placeHolder || 'Pick One'}}" 
-    aria-label="Number" 
+  <input
+    type="text"
+    placeholder="{{placeHolder || 'Pick One'}}"
+    aria-label="Number"
     matInput
-    [formControl]="myControl" 
+    [formControl]="myControl"
     [matAutocomplete]="auto"
     [(ngModel)]="selectedValue"
   >
-  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+  <mat-autocomplete
+    autoActiveFirstOption
+    #auto="matAutocomplete"
+    (optionSelected)="optionSelected($event)"
+  >
     <mat-option *ngFor="let option of filteredOptions | async; let i = index" [value]="option.name">
       {{ option.name }}
     </mat-option>

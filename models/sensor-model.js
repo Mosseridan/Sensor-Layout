@@ -46,26 +46,30 @@ module.exports.getSensorByName = function(name, callback){
     Sensor.findOne({'name': name}, callback);
 }
 
+module.exports.getAllSensors = function(callback){
+    Sensor.find().exec(callback);
+}
+
 module.exports.addSensor = function(newSensor, onError, onSuccess) {
     // let deleteOnError = (err) => {
     //     Sensor.remove({ _id: newSensor._id }, (rmErr)  => {
     //         if (rmErr) return onError(rmErr);
     //         onError(err);
     //     });
-    // } 
+    // }
 
     let deleteOnError = utils.getDeleteOnError(Sensor, newSensor, onError);
 
-    utils.validateField(Type, newSensor.type, 'type', onError, (type) => 
-        utils.validateField(Manufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) => 
+    utils.validateField(Type, newSensor.type, 'type', onError, (type) =>
+        utils.validateField(Manufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) =>
             utils.validateFields(Protocol, newSensor.protocols, 'protocol', onError, () =>
-                utils.validateField(Gateway, newSensor.gateway, 'gateway', onError, () => 
-                    utils.validateField(Site, newSensor.site, 'site', onError, () => 
+                utils.validateField(Gateway, newSensor.gateway, 'gateway', onError, () =>
+                    utils.validateField(Site, newSensor.site, 'site', onError, () =>
                         utils.addDoc(Sensor, newSensor, 'sensor', onError, (sensor) =>
-                            Gateway.addSensor(newSensor, deleteOnError, (sensor) => 
-                                Site.addSensor(newSensor, 
+                            Gateway.addSensor(newSensor, deleteOnError, (sensor) =>
+                                Site.addSensor(newSensor,
                                     (err) => Gateway.removeSensor(newSensor, deleteOnError, () => deleteOnError(err)),
-                                    onSuccess 
+                                    onSuccess
                                 )
                             )
                         )

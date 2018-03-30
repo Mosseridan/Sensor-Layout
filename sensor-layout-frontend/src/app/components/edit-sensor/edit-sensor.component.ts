@@ -16,7 +16,8 @@ import { Router } from '@angular/router';
 export class EditSensorComponent implements OnInit {
 
   @ViewChild('sensor') sensorAC: AutoCompleteComponent;
-  
+  sensor = false;
+  xxx = false;
   name: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
@@ -32,6 +33,7 @@ export class EditSensorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.xxx = false;
   }
 
   onSubmit(){
@@ -59,5 +61,9 @@ export class EditSensorComponent implements OnInit {
 
   }
 
-}
+  onOptionSelected(selectedOption){
+    console.log("YAD YAD ", selectedOption);
+    this.xxx = selectedOption;
+  }
 
+}

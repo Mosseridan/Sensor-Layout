@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output,  EventEmitter } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { startWith } from 'rxjs/operators/startWith';
@@ -17,15 +17,16 @@ export class AutoCompleteComponent implements OnInit {
  myControl: FormControl = new FormControl();
   @Input() optionsSourceUrl;
   @Input() placeHolder;
+  @Output() onOptionSelected = new EventEmitter<AutoCompleteOption>();
   options: AutoCompleteOption[];
-  selectedValue: string;
+  @Input() selectedValue: string;
   filteredOptions: Observable<AutoCompleteOption[]>;
- 
+
   constructor(
     private validateService: ValidationService,
     private authService: AuthService,
     private flashMessage: FlashMessagesService
-  ) { 
+  ) {
     this.options = [];
   }
 
@@ -33,15 +34,20 @@ export class AutoCompleteComponent implements OnInit {
     this.authService.get(this.optionsSourceUrl).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
-        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});        
+        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
       }
-      this.options = res.data.map(option => new AutoCompleteOption(option._id,option.name));
-      
+      this.options = res.data;//.map(option => new AutoCompleteOption(option._id,option.name));
+
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
         map(val => this.filter(val))
       );
     });
+  }
+
+  optionSelected(event){
+    console.log("SOMETHING ", this.getSelectedOption());
+    this.onOptionSelected.emit(this.getSelectedOption());
   }
 
 
@@ -53,7 +59,8 @@ export class AutoCompleteComponent implements OnInit {
     return this.options.filter(option => option.name.toLowerCase().indexOf(val.toLowerCase()) === 0).sort();
   }
 
-  getSelectedOption(): AutoCompleteOption {
+  getSelectedOption(): any {
     return this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
   }
+
 }

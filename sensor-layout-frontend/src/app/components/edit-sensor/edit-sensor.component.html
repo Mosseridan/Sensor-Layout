@@ -4,20 +4,22 @@
 
   <form class="mat-form" (submit)="onSubmit()">
 
-    <app-auto-complete [optionsSourceUrl]="'sensors/all'" [placeHolder]="'Sensor'" #sensor></app-auto-complete>    
+    <app-auto-complete [optionsSourceUrl]="'sensors/all'" [placeHolder]="'Choose Sensor'" (onOptionSelected)="onOptionSelected($event)"  #sensor></app-auto-complete>
+    <br><hr>
+    <div *ngIf="xxx">
+        <h1>{{xxx.name}}</h1>
+        <mat-form-field class="mat-full-width">
+          <input matInput placeholder="Name"  [(ngModel)]="xxx.name" name="name">
+        </mat-form-field>
 
-    <mat-form-field class="mat-full-width">
-      <input matInput placeholder="Name"  [(ngModel)]="name" name="name">
-    </mat-form-field>
+        <app-auto-complete [optionsSourceUrl]="'types/all'" [placeHolder]="'Type'" [selectedValue]="xxx.type.name" #type></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" [selectedValue]="xxx.manufacturer.name" #manufacturer></app-auto-complete>
+        <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" #protocols></app-multiple-choice>
 
-    <app-auto-complete [optionsSourceUrl]="'types/all'" [placeHolder]="'Type'" #type></app-auto-complete>
-    <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" #manufacturer></app-auto-complete>
-    <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" #protocols></app-multiple-choice>
-    
-    <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" #gateway></app-auto-complete>
-    <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" #site></app-auto-complete>
-    
-    <input type="submit" class="btn btn-primary" value="Add">
+        <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" [selectedValue]="xxx.gateway.name" #gateway></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" [selectedValue]="xxx.site.name" #site></app-auto-complete>
 
+        <input type="submit" class="btn btn-primary" value="Add">
+    </div>
   </form>
 </div>
