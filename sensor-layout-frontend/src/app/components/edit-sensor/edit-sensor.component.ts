@@ -16,12 +16,12 @@ import { Router } from '@angular/router';
 export class EditSensorComponent implements OnInit {
 
   @ViewChild('sensor') sensorAC: AutoCompleteComponent;
-  sensor = false;
-  xxx = false;
+
+  selectedSensor;
   name: string;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
-  @ViewChild('protocols') protocolsAC: MultipleChoiceComponent;
+  @ViewChild('protocols') protocolsMC: MultipleChoiceComponent;
   @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
   @ViewChild('site') siteAC: AutoCompleteComponent;
 
@@ -33,37 +33,37 @@ export class EditSensorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.xxx = false;
   }
 
   onSubmit(){
+    console.log('@@@ selectedSensor ',this.selectedSensor,'@@@');
 
     let sensor = new Sensor(
-      this.name,
+      this.selectedSensor.name,
       this.typeAC.getSelectedOption(),
       this.manufacturerAC.getSelectedOption(),
-      this.protocolsAC.getSelectedOptions(),
+      this.protocolsMC.getSelectedOptions(),
       this.gatewayAC.getSelectedOption(),
       this.siteAC.getSelectedOption()
     );
 
-    console.log('@@@',sensor,'@@@');
-    this.authService.post('sensors/edit',sensor).subscribe((res) => {
-      if(!res.success) {
-        console.log(res.msg);
-        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
-      }
-      console.log("Edit Sensor: ",res.data);
-      this.flashMessage.show("Sensor Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
+    console.log('@@@ sensor: ',sensor,'@@@');
+    // this.authService.post('sensors/edit',sensor).subscribe((res) => {
+    //   if(!res.success) {
+    //     console.log(res.msg);
+    //     return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
+    //   }
+    //   console.log("Edit Sensor: ",res.data);
+    //   this.flashMessage.show("Sensor Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
 
-      this.router.navigate(['/']);
-    });
+    //   this.router.navigate(['/']);
+    // });
 
   }
 
   onOptionSelected(selectedOption){
     console.log("YAD YAD ", selectedOption);
-    this.xxx = selectedOption;
+    this.selectedSensor = selectedOption;
   }
 
 }

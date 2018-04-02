@@ -46,8 +46,8 @@ export class AutoCompleteComponent implements OnInit {
   }
 
   optionSelected(event){
-    console.log("SOMETHING ", this.getSelectedOption());
-    this.onOptionSelected.emit(this.getSelectedOption());
+    console.log("SOMETHING ", this.getSelectedValue());
+    this.onOptionSelected.emit(this.getSelectedValue());
   }
 
 
@@ -59,7 +59,12 @@ export class AutoCompleteComponent implements OnInit {
     return this.options.filter(option => option.name.toLowerCase().indexOf(val.toLowerCase()) === 0).sort();
   }
 
-  getSelectedOption(): any {
+  getSelectedOption(): AutoCompleteOption {
+    let option = this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
+    return new AutoCompleteOption(option._id,option.name);
+  }
+
+  getSelectedValue(): any {
     return this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
   }
 

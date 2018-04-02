@@ -1,4 +1,4 @@
-<mat-form-field class="mat-full-width">  
+<mat-form-field *ngIf="myControl" class="mat-full-width">  
   <mat-select
     placeholder="{{placeHolder || 'Pick A Few'}}"
     [formControl]="myControl"

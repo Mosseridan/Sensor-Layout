@@ -14,11 +14,11 @@ import { AutoCompleteOption } from '../../types';
   styleUrls: ['./multiple-choice.component.css']
 })
 export class MultipleChoiceComponent implements OnInit {
- myControl: FormControl = new FormControl();
+  myControl: FormControl
   @Input() optionsSourceUrl;
   @Input() placeHolder;
   options: AutoCompleteOption[];
-  selectedValues: AutoCompleteOption[];
+  @Input() selectedValues: AutoCompleteOption[];
   filteredOptions: Observable<AutoCompleteOption[]>;
  
   constructor(
@@ -36,21 +36,8 @@ export class MultipleChoiceComponent implements OnInit {
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});        
       }
       this.options = res.data.map(option => new AutoCompleteOption(option._id,option.name));
-      
-      this.filteredOptions = this.myControl.valueChanges.pipe(
-        startWith(''),
-        map(val => this.filter(val))
-      );
+      this.myControl = new FormControl(this.selectedValues);
     });
-  }
-
-
-  // filter(val: string): string[] {
-  //   return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0).sort();
-  // }
-
-  filter(val: string): AutoCompleteOption[] {
-    return this.options.filter(option => option.name.toLowerCase().indexOf(val.toLowerCase()) === 0).sort();
   }
 
   getSelectedOptions(): AutoCompleteOption[] {
