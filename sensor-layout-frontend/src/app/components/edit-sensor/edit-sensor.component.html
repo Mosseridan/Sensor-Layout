@@ -18,7 +18,8 @@
         <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" [selectedValue]="selectedSensor.gateway.name" #gateway></app-auto-complete>
         <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" [selectedValue]="selectedSensor.site.name" #site></app-auto-complete>
 
-        <input type="submit" class="btn btn-primary" value="Add">
+        <input type="submit" class="btn btn-primary" value="Edit">
+        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
     </div>
   </form>
 </div>

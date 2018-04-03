@@ -46,7 +46,6 @@ export class AutoCompleteComponent implements OnInit {
   }
 
   optionSelected(event){
-    console.log("SOMETHING ", this.getSelectedValue());
     this.onOptionSelected.emit(this.getSelectedValue());
   }
 

@@ -15,10 +15,8 @@ import { Router } from '@angular/router';
 })
 export class EditSensorComponent implements OnInit {
 
-  @ViewChild('sensor') sensorAC: AutoCompleteComponent;
-
   selectedSensor;
-  name: string;
+  @ViewChild('sensor') sensorAC: AutoCompleteComponent;  
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
   @ViewChild('protocols') protocolsMC: MultipleChoiceComponent;
@@ -36,33 +34,45 @@ export class EditSensorComponent implements OnInit {
   }
 
   onSubmit(){
+
+    this.selectedSensor.type = this.typeAC.getSelectedOption();
+    this.selectedSensor.manufacturer = this.manufacturerAC.getSelectedOption();
+    this.selectedSensor.protocols = this.protocolsMC.getSelectedOptions();
+    this.selectedSensor.gateway = this.gatewayAC.getSelectedOption();
+    this.selectedSensor.site = this.siteAC.getSelectedOption();
+
+
+    console.log('@@@ selectedSensor ',this.selectedSensor,'@@@');
+    
+
+    this.authService.post('sensors/edit',this.selectedSensor).subscribe((res) => {
+      if(!res.success) {
+        console.log(res.msg);
+        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
+      }
+      console.log("Edit Sensor: ",res.data);
+      this.flashMessage.show("Sensor Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
+
+      this.router.navigate(['/']);
+    });
+  }
+
+  onDelete(){
     console.log('@@@ selectedSensor ',this.selectedSensor,'@@@');
 
-    let sensor = new Sensor(
-      this.selectedSensor.name,
-      this.typeAC.getSelectedOption(),
-      this.manufacturerAC.getSelectedOption(),
-      this.protocolsMC.getSelectedOptions(),
-      this.gatewayAC.getSelectedOption(),
-      this.siteAC.getSelectedOption()
-    );
+    this.authService.post('sensors/delete',this.selectedSensor).subscribe((res) => {
+      if(!res.success) {
+        console.log(res.msg);
+        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
+      }
+      console.log("Delte Sensor: ",res.data);
+      this.flashMessage.show("Sensor Deleted Successfully", {cssClass: 'alert-success', timeout: 5000});
 
-    console.log('@@@ sensor: ',sensor,'@@@');
-    // this.authService.post('sensors/edit',sensor).subscribe((res) => {
-    //   if(!res.success) {
-    //     console.log(res.msg);
-    //     return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
-    //   }
-    //   console.log("Edit Sensor: ",res.data);
-    //   this.flashMessage.show("Sensor Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
-
-    //   this.router.navigate(['/']);
-    // });
-
+      this.router.navigate(['/']);
+    });
   }
 
   onOptionSelected(selectedOption){
-    console.log("YAD YAD ", selectedOption);
     this.selectedSensor = selectedOption;
   }
 
