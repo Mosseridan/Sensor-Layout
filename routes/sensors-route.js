@@ -28,7 +28,6 @@ router.post('/add', (req, res, next) => {//passport.authenticate('jwt', { sessio
 // Get All Sensors
 router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     Sensor.getAllSensors((err, sensors) => {
-        console.log("GOT HERE ", err, sensors);
         if (err) return res.json({ success: false , msg: 'Failed to get all sensors: ' +  err });
         res.json({ success: true, data: sensors });
     });

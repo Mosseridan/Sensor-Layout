@@ -1,3 +1,18 @@
-<p>
-  edit-protocol works!
-</p>
+<br>
+<div class="container">
+  <h2 class="page-header">Edit Protocol</h2>
+
+  <form class="mat-form" (submit)="onSubmit()">
+
+    <app-auto-complete [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Choose Protocol'" (onOptionSelected)="onOptionSelected($event)"  #protocol></app-auto-complete>
+    <br><hr>
+    <div *ngIf="selectedProtocol">
+        <mat-form-field class="mat-full-width">
+          <input matInput placeholder="Name"  [(ngModel)]="selectedProtocol.name" name="name">
+        </mat-form-field>
+
+        <input protocol="submit" class="btn btn-primary" value="Edit">
+        <button protocol="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
+    </div>
+  </form>
+</div>

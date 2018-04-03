@@ -29,7 +29,7 @@ export class EditSiteComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit() {
 
     this.selectedSite.parentSite = this.parentSiteAC.getSelectedOption();
 
@@ -49,7 +49,7 @@ export class EditSiteComponent implements OnInit {
     });
   }
 
-  onDelete(){
+  onDelete() {
     console.log('@@@ selectedSite ',this.selectedSite,'@@@');
 
     this.authService.post('sites/delete',this.selectedSite).subscribe((res) => {
@@ -64,7 +64,7 @@ export class EditSiteComponent implements OnInit {
     });
   }
 
-  onOptionSelected(selectedOption){
+  onOptionSelected(selectedOption) {
     this.selectedSite = selectedOption;
   }
 

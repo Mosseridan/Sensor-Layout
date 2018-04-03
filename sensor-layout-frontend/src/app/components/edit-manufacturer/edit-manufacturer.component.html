@@ -1,3 +1,18 @@
-<p>
-  edit-manufacturer works!
-</p>
+<br>
+<div class="container">
+  <h2 class="page-header">Edit Manufacturer</h2>
+
+  <form class="mat-form" (submit)="onSubmit()">
+
+    <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Choose Manufacturer'" (onOptionSelected)="onOptionSelected($event)"  #manufacturer></app-auto-complete>
+    <br><hr>
+    <div *ngIf="selectedManufacturer">
+        <mat-form-field class="mat-full-width">
+          <input matInput placeholder="Name"  [(ngModel)]="selectedManufacturer.name" name="name">
+        </mat-form-field>
+
+        <input manufacturer="submit" class="btn btn-primary" value="Edit">
+        <button manufacturer="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
+    </div>
+  </form>
+</div>
