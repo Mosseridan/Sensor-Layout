@@ -5,6 +5,13 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/database');
 const Type = require('../models/type-model');
 
+// Get All Types
+router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Type.getAllTypes((err, types) => {
+        if (err) return res.json({ success: false , msg: 'Failed to get all types: ' +  err });
+        res.json({ success: true, data: types });
+    });      
+});
 
 // Add Type
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => { 
@@ -21,12 +28,22 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
     );
 });
 
-// Get All Types
-router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Type.getAllTypes((err, types) => {
-        if (err) return res.json({ success: false , msg: 'Failed to get all types: ' +  err });
-        res.json({ success: true, data: types });
+// Delete Type
+router.get('/delte', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Type.delteType(req.body._id, (err) => {
+        if (err) return res.json({ success: false , msg: 'Failed to delete type: ' +  err });
+        res.json({ success: true, msg: 'Type deleted scuccessfully' });
     });      
 });
+
+// Edit Type
+router.get('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Type.editType(req.body._id, (err, type) => {
+        if (err) return res.json({ success: false , msg: 'Failed to edit type: ' +  err });
+        res.json({ success: true, data: type });
+    });      
+});
+
+
 
 module.exports = router;

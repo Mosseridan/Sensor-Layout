@@ -27,3 +27,10 @@ module.exports.getAllTypes = function(callback){
 module.exports.addType = function(newType, onError, onSuccess) {
     utils.addDoc(Type, newType, 'type', onError, onSuccess);
 }
+
+module.exports.deleteType = function(id, callback) {
+    Type.remove({_id: id}, callback);
+}
+
+module.exports.editType = function(type, onError, onSuccess) {
+}
