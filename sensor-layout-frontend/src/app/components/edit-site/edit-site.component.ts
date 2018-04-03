@@ -15,12 +15,9 @@ import { Router } from '@angular/router';
 })
 export class EditSiteComponent implements OnInit {
 
-  selectedGateway;
-  @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
-  @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
+  selectedSite;
   @ViewChild('site') siteAC: AutoCompleteComponent;
-  @ViewChild('protocols') protocolsMC: MultipleChoiceComponent;  
-  @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
+  @ViewChild('parentSite') parentSiteAC: AutoCompleteComponent;
 
   constructor(
     private router: Router,
@@ -34,44 +31,41 @@ export class EditSiteComponent implements OnInit {
 
   onSubmit(){
 
-    this.selectedGateway.manufacturer = this.manufacturerAC.getSelectedOption();
-    this.selectedGateway.site = this.siteAC.getSelectedOption();    
-    this.selectedGateway.protocols = this.protocolsMC.getSelectedOptions();
-    this.selectedGateway.parentGateway = this.parentGatewayAC.getSelectedOption();
+    this.selectedSite.parentSite = this.parentSiteAC.getSelectedOption();
 
 
-    console.log('@@@ selectedGateway ',this.selectedGateway,'@@@');
+    console.log('@@@ selectedSite ',this.selectedSite,'@@@');
     
 
-    this.authService.post('gateways/edit',this.selectedGateway).subscribe((res) => {
+    this.authService.post('sites/edit',this.selectedSite).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
       }
-      console.log("Edit Gateway: ",res.data);
-      this.flashMessage.show("Gateway Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
+      console.log("Edit Site: ",res.data);
+      this.flashMessage.show("Site Changed Successfully", {cssClass: 'alert-success', timeout: 5000});
 
       this.router.navigate(['/']);
     });
   }
 
   onDelete(){
-    console.log('@@@ selectedGateway ',this.selectedGateway,'@@@');
+    console.log('@@@ selectedSite ',this.selectedSite,'@@@');
 
-    this.authService.post('gateways/delete',this.selectedGateway).subscribe((res) => {
+    this.authService.post('sites/delete',this.selectedSite).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
       }
-      console.log("Delete Gateway: ",res.data);
-      this.flashMessage.show("Gateway Deleted Successfully", {cssClass: 'alert-success', timeout: 5000});
+      console.log("Delete Site: ",res.data);
+      this.flashMessage.show("Site Deleted Successfully", {cssClass: 'alert-success', timeout: 5000});
 
       this.router.navigate(['/']);
     });
   }
 
   onOptionSelected(selectedOption){
-    this.selectedGateway = selectedOption;
+    this.selectedSite = selectedOption;
   }
 
 }

@@ -1,3 +1,20 @@
-<p>
-  edit-site works!
-</p>
+<br>
+<div class="container">
+  <h2 class="page-header">Edit Site</h2>
+
+  <form class="mat-form" (submit)="onSubmit()">
+
+    <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Choose Site'" (onOptionSelected)="onOptionSelected($event)"  #site></app-auto-complete>
+    <br><hr>
+    <div *ngIf="selectedSite">
+        <mat-form-field class="mat-full-width">
+          <input matInput placeholder="Name"  [(ngModel)]="selectedSite.name" name="name">
+        </mat-form-field>
+
+        <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Parent Site'" [selectedValue]="selectedSite.parentSite.name" #parentSite></app-auto-complete>
+       
+        <input type="submit" class="btn btn-primary" value="Edit">
+        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
+    </div>
+  </form>
+</div>
