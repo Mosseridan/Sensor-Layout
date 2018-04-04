@@ -120,19 +120,19 @@ export function newManufacturer() {
 export class Sensor {
     _id: string;
     name: string;
-    type: AutoCompleteOption;
-    manufacturer: AutoCompleteOption;
-    protocols: AutoCompleteOption[];    
-    gateway: AutoCompleteOption;
-    site: AutoCompleteOption;
+    type: string;
+    manufacturer: string;
+    protocols: string[];    
+    gateway: string;
+    site: string;
 
     constructor(
         name: string,
-        type: AutoCompleteOption,
-        manufacturer: AutoCompleteOption,
-        protocols: AutoCompleteOption[],
-        gateway: AutoCompleteOption,
-        site: AutoCompleteOption        
+        type: string,
+        manufacturer: string,
+        protocols: string[],
+        gateway: string,
+        site: string        
     ) {
         this.name = name;
         this.type = type;
@@ -154,21 +154,21 @@ export class Sensor {
 export class Gateway {
     _id: string;
     name: string;
-    manufacturer: AutoCompleteOption;
-    site: AutoCompleteOption;
-    protocols: AutoCompleteOption[];
-    parentGateway: AutoCompleteOption;
-    childGateways: AutoCompleteOption[];
-    sensors: AutoCompleteOption[];
+    manufacturer: string;
+    site: string;
+    protocols: string[];
+    parentGateway: string;
+    childGateways: string[];
+    sensors: string[];
 
     constructor(
         name: string,
-        manufacturer: AutoCompleteOption,
-        site: AutoCompleteOption,
-        protocols: AutoCompleteOption[],
-        parentGateway: AutoCompleteOption,
-        childGateways: AutoCompleteOption[],
-        sensors: AutoCompleteOption[],
+        manufacturer: string,
+        site: string,
+        protocols: string[],
+        parentGateway: string,
+        childGateways: string[],
+        sensors: string[],
     ) {
         this.name = name;
         this.manufacturer = manufacturer;
@@ -189,15 +189,15 @@ export class Gateway {
 export class Site {
     _id: string;
     name: string;
-    gateways: AutoCompleteOption[];
-    parentSite: AutoCompleteOption;
-    childSites: AutoCompleteOption[];
+    gateways: string[];
+    parentSite: string;
+    childSites: string[];
 
     constructor(
         name: string,
-        gateways: AutoCompleteOption[],
-        parentSite: AutoCompleteOption,
-        childSites: AutoCompleteOption[]
+        gateways: string[],
+        parentSite: string,
+        childSites: string[]
     ) {
         this.name = name;
         this.gateways = gateways;

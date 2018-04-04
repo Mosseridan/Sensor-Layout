@@ -31,7 +31,7 @@ export class EditSiteComponent implements OnInit {
 
   onSubmit() {
 
-    this.selectedSite.parentSite = this.parentSiteAC.getSelectedOption();
+    this.selectedSite.parentSite = this.parentSiteAC.getSelectedOptionId();
 
 
     console.log('@@@ selectedSite ',this.selectedSite,'@@@');

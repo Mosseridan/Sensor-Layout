@@ -14,23 +14,23 @@ const SensorSchema = mongoose.Schema({
         required: true
     },
     type: {
-        type: utils.NamedObject,
+        type: String,
         required: true
     },
     manufacturer: {
-       type: utils.NamedObject,
+       type: String,
        required: true
     },
     protocols: {
-        type: [utils.NamedObject],
+        type: [String],
         required: true
     },
     gateway: {
-        type: utils.NamedObject,
+        type: String,
         required: true
     },
     site: {
-        type: utils.NamedObject,
+        type: String,
         required: true
     }
 });
@@ -60,11 +60,11 @@ module.exports.addSensor = function(newSensor, onError, onSuccess) {
 
     let deleteOnError = utils.getDeleteOnError(Sensor, newSensor, onError);
 
-    utils.validateField(Type, newSensor.type, 'type', onError, (type) =>
-        utils.validateField(Manufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) =>
+    utils.validateFieldById(Type, newSensor.type, 'type', onError, (type) =>
+        utils.validateFieldById(Manufacturer, newSensor.manufacturer, 'manufacturer', onError, (maufacturer) =>
             utils.validateFields(Protocol, newSensor.protocols, 'protocol', onError, () =>
-                utils.validateField(Gateway, newSensor.gateway, 'gateway', onError, () =>
-                    utils.validateField(Site, newSensor.site, 'site', onError, () =>
+                utils.validateFieldById(Gateway, newSensor.gateway, 'gateway', onError, () =>
+                    utils.validateFieldById(Site, newSensor.site, 'site', onError, () =>
                         utils.addDoc(Sensor, newSensor, 'sensor', onError, (sensor) =>
                             Gateway.addSensor(newSensor, deleteOnError, (sensor) =>
                                 Site.addSensor(newSensor,

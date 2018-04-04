@@ -9,19 +9,19 @@ const SiteSchema = mongoose.Schema({
         required: true
     },
     gateways: {
-        type: [utils.NamedObject],
+        type: [String],
         required: true
     },
     parentSite: {
-        type: utils.NamedObject,
+        type: String,
         required: false
     },
     childSites: {
-        type: [utils.NamedObject],
+        type: [String],
         required: true
     },
     sensors: {
-        type: [utils.NamedObject],
+        type: [String],
         required: true
     },
 });
@@ -45,7 +45,7 @@ module.exports.addSite = function(newSite, onError, onSuccess) {
     let deleteOnError = utils.getDeleteOnError(Site, newSite, onError);
     
     if (!newSite.parentSite) return utils.addDoc(Site, newSite, 'site', onError, onSuccess);          
-    utils.validateField(Site, newSite.parentSite, 'parent site', onError, (parentSite) => 
+    utils.validateFieldById(Site, newSite.parentSite, 'parent site', onError, (parentSite) => 
         utils.addDoc(Site, newSite, 'site', onError, (site) =>
             Site.addChildSite(newSite, deleteOnError, onSuccess)    
         )   
@@ -54,14 +54,14 @@ module.exports.addSite = function(newSite, onError, onSuccess) {
 
 
 module.exports.addSensor = function(newSensor, onError, onSuccess) {
-    Site.updateOne({ _id: newSensor.site._id }, {$push: {'sensors': newSensor}}, (err, res) => {
+    Site.updateOne({ _id: newSensor.site }, {$push: {'sensors': newSensor._id}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + newSensor.site);
         onSuccess(newSensor);        
     });  
 }
 
 module.exports.removeSensor = function(sensor, onError, onSuccess) {
-    Site.updateOne({ _id: sensor.site._id }, {$pull: {'sensors': sensor}}, (err, res) => {
+    Site.updateOne({ _id: sensor.site }, {$pull: {'sensors': sensor._id}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + sensor.site);
         onSuccess();        
     });  
@@ -69,7 +69,7 @@ module.exports.removeSensor = function(sensor, onError, onSuccess) {
 
 
 module.exports.addGateway = function(newGateway, onError, onSuccess) {
-    Site.updateOne({ _id: newGateway.site._id }, {$push: {'gateways': newGateway}}, (err, res) => {
+    Site.updateOne({ _id: newGateway.site }, {$push: {'gateways': newGateway._id}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + newGateway.site);
         onSuccess(newGateway);        
     });  
@@ -77,22 +77,22 @@ module.exports.addGateway = function(newGateway, onError, onSuccess) {
 
 
 module.exports.removeGateway = function(gateway, onError, onSuccess) {
-    Site.updateOne({ _id: gateway.site._id }, {$pull: {'gateways': gateway}}, (err, res) => {
+    Site.updateOne({ _id: gateway.site }, {$pull: {'gateways': gateway._id}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + gateway.site);
         onSuccess();        
     });  
 }
 
 module.exports.addChildSite = function(newSite, onError, onSuccess) {
-    Site.updateOne({ _id: newSite.parentSite._id }, {$push: {'childSites': newSite}}, (err, res) => {
+    Site.updateOne({ _id: newSite.parentSite }, {$push: {'childSites': newSite._id}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + newSite.parentSite);
-        onSuccess(newGateway);         
+        onSuccess(newSite);         
     });    
 }
 
 
 module.exports.removeChildSite = function(childSites, onError, onSuccess) {
-    Site.updateOne({ _id: childSites.site._id }, {$pull: {'childSites': childSites}}, (err, res) => {
+    Site.updateOne({ _id: childSites.site }, {$pull: {'childSites': childSites._id}}, (err, res) => {
         if (res.nModified == 0) return onError('No such site ' + childSites.site);
         onSuccess();        
     });  

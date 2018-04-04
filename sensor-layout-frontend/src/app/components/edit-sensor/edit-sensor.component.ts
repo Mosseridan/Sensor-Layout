@@ -35,11 +35,11 @@ export class EditSensorComponent implements OnInit {
 
   onSubmit(){
 
-    this.selectedSensor.type = this.typeAC.getSelectedOption();
-    this.selectedSensor.manufacturer = this.manufacturerAC.getSelectedOption();
-    this.selectedSensor.protocols = this.protocolsMC.getSelectedOptions();
-    this.selectedSensor.gateway = this.gatewayAC.getSelectedOption();
-    this.selectedSensor.site = this.siteAC.getSelectedOption();
+    this.selectedSensor.type = this.typeAC.getSelectedOptionId();
+    this.selectedSensor.manufacturer = this.manufacturerAC.getSelectedOptionId();
+    this.selectedSensor.protocols = this.protocolsMC.getSelectedOptionIds();
+    this.selectedSensor.gateway = this.gatewayAC.getSelectedOptionId();
+    this.selectedSensor.site = this.siteAC.getSelectedOptionId();
 
 
     console.log('@@@ selectedSensor ',this.selectedSensor,'@@@');

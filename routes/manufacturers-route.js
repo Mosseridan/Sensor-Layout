@@ -11,7 +11,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         'name': req.body.name
     });
 
-    Manufacturer.addManufacturer(newType,
+    Manufacturer.addManufacturer(newManufacturer,
         (err) => res.json({ success: false , msg: 'Failed to add manufacturer: ' +  err }), // onError
         (manufacturer) => res.json({ success: true, data: manufacturer }) // onSuccess
     );

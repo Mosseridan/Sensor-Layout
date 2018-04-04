@@ -43,4 +43,8 @@ export class MultipleChoiceComponent implements OnInit {
   getSelectedOptions(): AutoCompleteOption[] {
     return this.selectedValues;
   }
+
+  getSelectedOptionIds(): string[] {
+    return this.selectedValues.map(val => val._id);
+  }
 }

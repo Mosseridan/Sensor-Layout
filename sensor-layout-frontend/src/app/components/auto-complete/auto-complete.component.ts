@@ -67,4 +67,10 @@ export class AutoCompleteComponent implements OnInit {
     return this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
   }
 
+  getSelectedOptionId(): string {
+    let option = this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
+    if (option) return option._id;
+    else return undefined;
+  }
+
 }

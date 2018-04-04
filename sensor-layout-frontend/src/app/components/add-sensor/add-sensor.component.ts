@@ -63,11 +63,11 @@ export class AddSensorComponent implements OnInit {
 
     let sensor = new Sensor(
       this.name,
-      this.typeAC.getSelectedOption(),
-      this.manufacturerAC.getSelectedOption(),
-      this.protocolsAC.getSelectedOptions(),
-      this.gatewayAC.getSelectedOption(),
-      this.siteAC.getSelectedOption()
+      this.typeAC.getSelectedOptionId(),
+      this.manufacturerAC.getSelectedOptionId(),
+      this.protocolsAC.getSelectedOptionIds(),
+      this.gatewayAC.getSelectedOptionId(),
+      this.siteAC.getSelectedOptionId()
     );
 
     console.log('@@@',sensor,'@@@');

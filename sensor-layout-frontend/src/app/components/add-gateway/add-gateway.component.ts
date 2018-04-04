@@ -35,10 +35,10 @@ export class AddGatewayComponent implements OnInit {
     onSubmit(){ 
       let gateway = new Gateway(
         this.name,
-        this.manufacturerAC.getSelectedOption(),
-        this.siteAC.getSelectedOption(),
-        this.protocolsAC.getSelectedOptions(),
-        this.parentGatewayAC.getSelectedOption(),
+        this.manufacturerAC.getSelectedOptionId(),
+        this.siteAC.getSelectedOptionId(),
+        this.protocolsAC.getSelectedOptionIds(),
+        this.parentGatewayAC.getSelectedOptionId(),
         [],
         []
       );

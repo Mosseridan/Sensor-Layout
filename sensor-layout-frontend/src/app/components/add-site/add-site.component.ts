@@ -32,7 +32,7 @@ export class AddSiteComponent implements OnInit {
     let site = new Site(
       this.name,
       [],
-      this.parentSiteAC.getSelectedOption(),
+      this.parentSiteAC.getSelectedOptionId(),
       []
     );
 

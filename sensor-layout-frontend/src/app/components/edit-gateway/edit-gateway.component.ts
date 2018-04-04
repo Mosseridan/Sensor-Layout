@@ -35,10 +35,10 @@ export class EditGatewayComponent implements OnInit {
 
   onSubmit(){
 
-    this.selectedGateway.manufacturer = this.manufacturerAC.getSelectedOption();
-    this.selectedGateway.site = this.siteAC.getSelectedOption();    
-    this.selectedGateway.protocols = this.protocolsMC.getSelectedOptions();
-    this.selectedGateway.parentGateway = this.parentGatewayAC.getSelectedOption();
+    this.selectedGateway.manufacturer = this.manufacturerAC.getSelectedOptionId();
+    this.selectedGateway.site = this.siteAC.getSelectedOptionId();    
+    this.selectedGateway.protocols = this.protocolsMC.getSelectedOptionIds();
+    this.selectedGateway.parentGateway = this.parentGatewayAC.getSelectedOptionId();
 
 
     console.log('@@@ selectedGateway ',this.selectedGateway,'@@@');
