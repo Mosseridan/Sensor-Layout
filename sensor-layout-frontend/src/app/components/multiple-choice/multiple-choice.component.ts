@@ -37,17 +37,13 @@ export class MultipleChoiceComponent implements OnInit {
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
       }
       this.options = res.data.map(option => new AutoCompleteOption(option._id,option.name));
-      console.log("initial ids: ", this.initialIds);
-      console.log("Options: ", this.options);
-      if (this.initialIds) this.selectedValues = this.getValuesByIds(this.initialIds).map(val => val.name);
+      if (this.initialIds) this.selectedValues = this.getValuesByIds(this.initialIds);
       else this.selectedValues = [];
-      console.log("Selected values are: ", this.selectedValues);
       this.myControl = new FormControl(this.selectedValues);
     });
   }
 
   getValuesByIds(ids): any {
-    console.log("ids: " , ids);
     return ids.map(id => this.getValueById(id));
   }
 
@@ -60,8 +56,6 @@ export class MultipleChoiceComponent implements OnInit {
   }
 
   getSelectedOptionIds(): string[] {
-    console.log("this.selectedValues inside getSelectedOptionIds: ", this.selectedValues);
-    console.log("this.selectedValues.map inside getSelectedOptionIds: ",this.selectedValues.map(val => val._id));
     return this.selectedValues.map(val => val._id);
   }
 }
