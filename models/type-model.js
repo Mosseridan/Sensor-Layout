@@ -32,5 +32,6 @@ module.exports.deleteType = function(id, callback) {
     Type.remove({_id: id}, callback);
 }
 
-module.exports.editType = function(type, onError, onSuccess) {
+module.exports.editType = function(type, callback) {
+  Type.findByIdAndUpdate(type._id, { name: type.name }, callback);
 }

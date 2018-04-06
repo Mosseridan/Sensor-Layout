@@ -26,5 +26,9 @@ module.exports.getAllProtocols = function(callback){
 }
 
 module.exports.addProtocol = function(newProtocol, onError, onSuccess) {
-    utils.addDoc(Protocol, newProtocol, 'protocol', onError, onSuccess);    
+    utils.addDoc(Protocol, newProtocol, 'protocol', onError, onSuccess);
+}
+
+module.exports.editProtocol = function(protocol, callback) {
+  Protocol.findByIdAndUpdate(protocol._id, { name: protocol.name }, callback);
 }

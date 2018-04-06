@@ -10,11 +10,11 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     Type.getAllTypes((err, types) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all types: ' +  err });
         res.json({ success: true, data: types });
-    });      
+    });
 });
 
 // Add Type
-router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => { 
+router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const newType = new Type({
         'name': req.body.name
     });
@@ -23,25 +23,25 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         (err) => { // onError
             console.log(err);
             res.json({ success: false , msg: 'Failed to add type: ' +  err })
-        }, 
+        },
         (type) => res.json({ success: true, data: type }) // onSuccess
     );
 });
 
 // Delete Type
-router.get('/delte', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Type.delteType(req.body._id, (err) => {
+router.post('/delete', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Type.deleteType(req.body._id, (err) => {
         if (err) return res.json({ success: false , msg: 'Failed to delete type: ' +  err });
         res.json({ success: true, msg: 'Type deleted scuccessfully' });
-    });      
+    });
 });
 
 // Edit Type
-router.get('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Type.editType(req.body._id, (err, type) => {
+router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Type.editType(req.body, (err, type) => {
         if (err) return res.json({ success: false , msg: 'Failed to edit type: ' +  err });
         res.json({ success: true, data: type });
-    });      
+    });
 });
 
 

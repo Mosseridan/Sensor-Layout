@@ -29,7 +29,6 @@ export class EditManufacturerComponent implements OnInit {
   }
 
   onSubmit() {
-
     console.log('@@@ selectedManufacturer ',this.selectedManufacturer,'@@@');
 
     this.authService.post('manufacturers/edit',this.selectedManufacturer).subscribe((res) => {

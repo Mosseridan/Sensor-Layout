@@ -6,7 +6,7 @@ const config = require('../config/database');
 const Manufacturer = require('../models/manufacturer-model');
 
 // Add Manufacturer
-router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => { 
+router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const newManufacturer = new Manufacturer({
         'name': req.body.name
     });
@@ -22,7 +22,15 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     Manufacturer.getAllManufacturers((err, manufacturers) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all manufacturers: ' +  err });
         res.json({ success: true, data: manufacturers });
-    });      
+    });
+});
+
+// Edit Manufacturer
+router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Manufacturer.editManufacturer(req.body, (err, manufacturer) => {
+        if (err) return res.json({ success: false , msg: 'Failed to edit manufacturer: ' +  err });
+        res.json({ success: true, data: manufacturer });
+    });
 });
 
 module.exports = router;

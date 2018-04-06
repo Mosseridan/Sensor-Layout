@@ -6,7 +6,7 @@ const config = require('../config/database');
 const Protocol = require('../models/protocol-model');
 
 // Add Protocol
-router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => { 
+router.post('/add', passport.authenticate('jwt', { session: false }), (req, res, next) => {
     const newProtocol = new Protocol({
         'name': req.body.name
     });
@@ -22,7 +22,15 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     Protocol.getAllProtocols((err, protocols) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all protocols: ' +  err });
         res.json({ success: true, data: protocols });
-    });      
+    });
+});
+
+// Edit Protocol
+router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Protocol.editProtocol(req.body, (err, protocol) => {
+        if (err) return res.json({ success: false , msg: 'Failed to edit protocol: ' +  err });
+        res.json({ success: true, data: protocol });
+    });
 });
 
 module.exports = router;

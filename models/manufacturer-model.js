@@ -28,3 +28,7 @@ module.exports.getAllManufacturers = function(callback){
 module.exports.addManufacturer = function(newManufacturer, onError, onSuccess) {
     utils.addDoc(Manufacturer, newManufacturer, 'manufacturer', onError, onSuccess);
 }
+
+module.exports.editManufacturer = function(manufacturer, callback) {
+    Manufacturer.findByIdAndUpdate(manufacturer._id, { name: manufacturer.name }, callback);
+}

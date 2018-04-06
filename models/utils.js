@@ -97,6 +97,13 @@ exports.getDeleteOnError = function(model, doc, onError) {
             onError(err);
         });
     }
-} 
+}
+
+exports.getCallback = function(onError, onSuccess) {
+  return function(err, res){
+    if (err) onError(err);
+    else onSuccess(res);
+  }
+}
 
 exports.NamedObject = { _id: String, name: String}
