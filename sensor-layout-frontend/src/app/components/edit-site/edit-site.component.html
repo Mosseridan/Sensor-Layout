@@ -11,10 +11,10 @@
           <input matInput placeholder="Name"  [(ngModel)]="selectedSite.name" name="name">
         </mat-form-field>
 
-        <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Parent Site'" [selectedValue]="selectedSite.parentSite.name" #parentSite></app-auto-complete>
-       
+        <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Parent Site'" [initialId]="selectedSite.parentSite" #parentSite></app-auto-complete>
+
         <input type="submit" class="btn btn-primary" value="Edit">
-        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
+        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>
     </div>
   </form>
 </div>

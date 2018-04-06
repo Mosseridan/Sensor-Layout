@@ -56,33 +56,47 @@ module.exports.getAllGateways = function(callback){
 
 
 module.exports.addGateway = function(newGateway, onError, onSuccess) {
-    let deleteOnError = utils.getDeleteOnError(Gateway, newGateway, onError); 
+    let deleteOnError = utils.getDeleteOnError(Gateway, newGateway, onError);
 
-    utils.validateFieldById(Manufacturer, newGateway.manufacturer, 'manufacturer', onError, (maufacturer) => 
+    utils.validateFieldById(Manufacturer, newGateway.manufacturer, 'manufacturer', onError, (maufacturer) =>
         utils.validateFieldById(Site, newGateway.site, 'site', onError, (site) =>
             utils.validateFields(Protocol, newGateway.protocols, 'protocol', onError, () => {
-                // If No parent gateway specified, save new gateway.    
+                // If No parent gateway specified, save new gateway.
                 if (!newGateway.parentGateway) {
                     utils.addDoc(Gateway, newGateway, 'gateway', onError, (gateway) =>
-                        Site.addGateway(newGateway, deleteOnError, onSuccess)     
+                        Site.addGateway(newGateway, deleteOnError, onSuccess)
                     );
                 }
                 // Else get parent gateway
                 else {
-                    utils.validateFieldById(Gateway, newGateway.parentGateway, 'parent gateway', onError, (parentGateway) => 
-                        utils.addDoc(Gateway, newGateway, 'gateway', onError, (gateway) =>  
-                            Site.addGateway(newGateway, deleteOnError, (gateway) =>    
-                                Gateway.addChildGateway(newGateway, 
-                                    (err) => Site.removeGateway(newGateway, deleteOnError, () => deleteOnError(err)),  
+                    utils.validateFieldById(Gateway, newGateway.parentGateway, 'parent gateway', onError, (parentGateway) =>
+                        utils.addDoc(Gateway, newGateway, 'gateway', onError, (gateway) =>
+                            Site.addGateway(newGateway, deleteOnError, (gateway) =>
+                                Gateway.addChildGateway(newGateway,
+                                    (err) => Site.removeGateway(newGateway, deleteOnError, () => deleteOnError(err)),
                                     onSuccess
                                 )
                             )
                         )
                     );
-                }   
+                }
             })
         )
     );
+}
+
+
+module.exports.editGateway = function(gateway, callback) {
+  Gateway.findByIdAndUpdate(gateway._id,
+    { name: gateway.name,
+     manufacturer: gateway.manufacturer,
+     site: gateway.site,
+     protocols : gateway.protocols,
+     parentGateway: gateway.parentGateway,
+     childGateways : gateway.childGateways,
+     sensors: gateway.sensors
+     },
+     callback);
 }
 
 

@@ -21,7 +21,7 @@ router.post('/add', passport.authenticate('jwt', { session: false }), (req, res,
         (err) => { // onError
             console.log(err);
             res.json({ success: false , msg: 'Failed to add gateway: ' +  err })
-        }, 
+        },
         (gateway) => res.json({ success: true, data: gateway }) // onSuccess
     );
 });
@@ -31,6 +31,14 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     Gateway.getAllGateways((err, gateways) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all gateways: ' +  err });
         res.json({ success: true, data: gateways });
+    });
+});
+
+// Edit Gateway
+router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Gateway.editGateway(req.body, (err, gateway) => {
+        if (err) return res.json({ success: false , msg: 'Failed to edit gateway: ' +  err });
+        res.json({ success: true, data: gateway });
     });
 });
 

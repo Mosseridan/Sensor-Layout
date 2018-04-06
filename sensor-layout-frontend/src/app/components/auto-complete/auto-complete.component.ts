@@ -19,7 +19,8 @@ export class AutoCompleteComponent implements OnInit {
   @Input() placeHolder;
   @Output() onOptionSelected = new EventEmitter<AutoCompleteOption>();
   options: AutoCompleteOption[];
-  @Input() selectedValue: string;
+  selectedValue: string;
+  @Input() initialId: string;
   filteredOptions: Observable<AutoCompleteOption[]>;
 
   constructor(
@@ -37,6 +38,7 @@ export class AutoCompleteComponent implements OnInit {
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
       }
       this.options = res.data;//.map(option => new AutoCompleteOption(option._id,option.name));
+      if (this.initialId) this.selectedValue = this.getValueById(this.initialId).name;
 
       this.filteredOptions = this.myControl.valueChanges.pipe(
         startWith(''),
@@ -65,6 +67,10 @@ export class AutoCompleteComponent implements OnInit {
 
   getSelectedValue(): any {
     return this.options[this.options.map(option => option.name).indexOf(this.selectedValue)];
+  }
+
+  getValueById(id): any {
+    return this.options[this.options.map(option => option._id).indexOf(id)];
   }
 
   getSelectedOptionId(): string {

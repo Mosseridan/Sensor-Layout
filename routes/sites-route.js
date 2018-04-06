@@ -28,5 +28,13 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     });
 });
 
+// Edit Site
+router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Site.editSite(req.body, (err, site) => {
+        if (err) return res.json({ success: false , msg: 'Failed to edit site: ' +  err });
+        res.json({ success: true, data: site });
+    });
+});
+
 
 module.exports = router;

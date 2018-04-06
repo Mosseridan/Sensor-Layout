@@ -11,15 +11,15 @@
           <input matInput placeholder="Name"  [(ngModel)]="selectedSensor.name" name="name">
         </mat-form-field>
 
-        <app-auto-complete [optionsSourceUrl]="'types/all'" [placeHolder]="'Type'" [selectedValue]="selectedSensor.type.name" #type></app-auto-complete>
-        <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" [selectedValue]="selectedSensor.manufacturer.name" #manufacturer></app-auto-complete>
-        <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" [selectedValues]="selectedSensor.protocols" #protocols></app-multiple-choice>
+        <app-auto-complete [optionsSourceUrl]="'types/all'" [placeHolder]="'Type'" [initialId]="selectedSensor.type" #type></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" [initialId]="selectedSensor.manufacturer" #manufacturer></app-auto-complete>
+        <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" [initialIds]="selectedSensor.protocols" #protocols></app-multiple-choice>
 
-        <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" [selectedValue]="selectedSensor.gateway.name" #gateway></app-auto-complete>
-        <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" [selectedValue]="selectedSensor.site.name" #site></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" [initialId]="selectedSensor.gateway" #gateway></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" [initialId]="selectedSensor.site" #site></app-auto-complete>
 
         <input type="submit" class="btn btn-primary" value="Edit">
-        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
+        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>
     </div>
   </form>
 </div>

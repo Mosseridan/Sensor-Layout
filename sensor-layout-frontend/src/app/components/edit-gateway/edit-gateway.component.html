@@ -11,13 +11,13 @@
           <input matInput placeholder="Name"  [(ngModel)]="selectedGateway.name" name="name">
         </mat-form-field>
 
-        <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" [selectedValue]="selectedGateway.manufacturer.name" #manufacturer></app-auto-complete>
-        <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" [selectedValue]="selectedGateway.site.name" #site></app-auto-complete>       
-        <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" [selectedValues]="selectedGateway.protocols" #protocols></app-multiple-choice>
-        <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" [selectedValue]="selectedGateway.parentGateway.name" #parentGateway></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" [initialId]="selectedGateway.manufacturer" #manufacturer></app-auto-complete>
+        <app-auto-complete [optionsSourceUrl]="'sites/all'"  [placeHolder]="'Site'" [initialId]="selectedGateway.site" #site></app-auto-complete>
+        <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" [initialIds]="selectedGateway.protocols" #protocols></app-multiple-choice>
+        <app-auto-complete [optionsSourceUrl]="'gateways/all'"  [placeHolder]="'Gateway'" [initialId]="selectedGateway.parentGateway" #parentGateway></app-auto-complete>
 
         <input type="submit" class="btn btn-primary" value="Edit">
-        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>        
+        <button type="button" class="btn btn-primary" (click)="onDelete()">Delete</button>
     </div>
   </form>
 </div>
