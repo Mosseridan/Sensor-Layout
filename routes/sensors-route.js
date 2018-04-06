@@ -33,5 +33,13 @@ router.get('/all', passport.authenticate('jwt', { session: false }), (req, res, 
     });
 });
 
+// Edit Sensor
+router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Sensor.editSensor(req.body, (err, sensor) => {
+        if (err) return res.json({ success: false , msg: 'Failed to edit sensor: ' +  err });
+        res.json({ success: true, data: sensor });
+    });
+});
+
 
 module.exports = router;

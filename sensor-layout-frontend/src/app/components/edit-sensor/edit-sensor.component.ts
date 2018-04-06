@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class EditSensorComponent implements OnInit {
 
   selectedSensor;
-  @ViewChild('sensor') sensorAC: AutoCompleteComponent;  
+  @ViewChild('sensor') sensorAC: AutoCompleteComponent;
   @ViewChild('type') typeAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
   @ViewChild('protocols') protocolsMC: MultipleChoiceComponent;
@@ -43,7 +43,7 @@ export class EditSensorComponent implements OnInit {
 
 
     console.log('@@@ selectedSensor ',this.selectedSensor,'@@@');
-    
+
 
     this.authService.post('sensors/edit',this.selectedSensor).subscribe((res) => {
       if(!res.success) {

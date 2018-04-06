@@ -79,3 +79,15 @@ module.exports.addSensor = function(newSensor, onError, onSuccess) {
         )
     );
 }
+
+module.exports.editSensor = function(sensor, callback) {
+  Sensor.findByIdAndUpdate(sensor._id,
+    { name: sensor.name,
+     type: sensor.type,
+     manufacturer: sensor.manufacturer,
+     protocols : sensor.protocols,
+     gateway: sensor.gateway,
+     site : sensor.site
+     },
+     callback);
+}

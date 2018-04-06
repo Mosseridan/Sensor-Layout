@@ -20,7 +20,7 @@ export class EditGatewayComponent implements OnInit {
   @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
   @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
   @ViewChild('site') siteAC: AutoCompleteComponent;
-  @ViewChild('protocols') protocolsMC: MultipleChoiceComponent;  
+  @ViewChild('protocols') protocolsMC: MultipleChoiceComponent;
   @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
 
   constructor(
@@ -36,13 +36,13 @@ export class EditGatewayComponent implements OnInit {
   onSubmit(){
 
     this.selectedGateway.manufacturer = this.manufacturerAC.getSelectedOptionId();
-    this.selectedGateway.site = this.siteAC.getSelectedOptionId();    
+    this.selectedGateway.site = this.siteAC.getSelectedOptionId();
     this.selectedGateway.protocols = this.protocolsMC.getSelectedOptionIds();
     this.selectedGateway.parentGateway = this.parentGatewayAC.getSelectedOptionId();
 
 
     console.log('@@@ selectedGateway ',this.selectedGateway,'@@@');
-    
+
 
     this.authService.post('gateways/edit',this.selectedGateway).subscribe((res) => {
       if(!res.success) {
