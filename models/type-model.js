@@ -29,7 +29,12 @@ module.exports.addType = function(newType, onError, onSuccess) {
 }
 
 module.exports.deleteType = function(id, callback) {
-    Type.remove({_id: id}, callback);
+    const Sensor = require('./sensor-model');
+    Sensor.findOne({ 'type': id}, (err, sensor) => {
+          if (err) return callback(err);
+          if (sensor) return callback('Type being used by sensor ' + sensor.name);
+          Type.findByIdAndRemove(id, callback);
+    });
 }
 
 module.exports.editType = function(type, callback) {

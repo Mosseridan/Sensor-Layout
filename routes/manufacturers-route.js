@@ -33,4 +33,12 @@ router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res
     });
 });
 
+// Delete Manufacturer
+router.post('/delete', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Manufacturer.deleteManufacturer(req.body._id, (err) => {
+        if (err) return res.json({ success: false , msg: 'Failed to delete manufacturer: ' +  err });
+        res.json({ success: true, msg: 'Manufacturer deleted scuccessfully' });
+    });
+});
+
 module.exports = router;
