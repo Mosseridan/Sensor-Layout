@@ -36,5 +36,13 @@ router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res
     });
 });
 
+// Delete Site
+router.post('/delete', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Site.deleteSite(req.body._id, (err) => {
+        if (err) return res.json({ success: false , msg: 'Failed to delete site: ' +  err });
+        res.json({ success: true, msg: 'Site deleted scuccessfully' });
+    });
+});
+
 
 module.exports = router;

@@ -52,6 +52,24 @@ module.exports.addSite = function(newSite, onError, onSuccess) {
     );
 }
 
+module.exports.deleteSite = function(id, callback) {
+    const Gateway = require('./gateway-model');
+    const Sensor = require('./sensor-model');
+    Site.findOne({ 'parentSite' : id }, (err, partentSite) => {
+        if (err) return callback(err);
+        if (partentSite) return callback('Site being used by another site as parent ' + partentSite.name);
+        Gateway.findOne({ 'site' : id }, (err, gateway) => {
+            if (err) return callback(err);
+            if (gateway) return callback('Site being used by gateway ' + gateway.name);
+            Sensor.findOne({ 'site': id}, (err, sensor) => {
+            if (err) return callback(err);
+            if (sensor) return callback('Site being used by sensor ' + sensor.name);
+            Site.findByIdAndRemove(id, callback);
+            });
+        });
+    });
+}
+
 module.exports.editSite = function(site, callback) {
   Site.findByIdAndUpdate(site._id, { name: site.name, gateways: site.gateways,
     parentSite: site.parentSite, childSites: site.childSites, sensors: site.sensors }, callback);
