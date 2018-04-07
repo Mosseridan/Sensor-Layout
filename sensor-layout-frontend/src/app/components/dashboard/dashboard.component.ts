@@ -38,6 +38,7 @@ export class DashboardComponent implements OnInit {
       }
       console.log("Sensors Layout By Gateway: ",res.data);
       this.flashMessage.show("Sensors Layout By Gateway Retreived Successfully", {cssClass: 'alert-success', timeout: 5000});
+      this.jsonLayout = res.data;
     });
 
   }
