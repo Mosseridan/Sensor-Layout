@@ -3,5 +3,7 @@
   <h2 class="page-header">Dashboard</h2>
     <button type="button" class="btn btn-primary" (click)="getSiteJson()">Get Sensors Layout By Sites</button>
     <button type="button" class="btn btn-primary" (click)="getGatewayJson()">Get Sensors Layout By Gateways</button>
+    <br><hr><br>
+    <pre *ngIf="jsonLayout">{{jsonLayout | json}}</pre>
 </div>
 

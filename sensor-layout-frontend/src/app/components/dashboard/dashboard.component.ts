@@ -9,6 +9,8 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class DashboardComponent implements OnInit {
 
+  jsonLayout 
+
   constructor(private authService: AuthService, 
     private flashMessage: FlashMessagesService) { 
   }
@@ -24,10 +26,19 @@ export class DashboardComponent implements OnInit {
       }
       console.log("Sensors Layout By Site: ",res.data);
       this.flashMessage.show("Sensors Layout By Site Retreived Successfully", {cssClass: 'alert-success', timeout: 5000});
+      this.jsonLayout = res.data;
     });
   }
 
   getGatewayJson(){
+    this.authService.get('jsons/by-gateway').subscribe((res) => {
+      if(!res.success) {
+        console.log(res.msg);
+        return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
+      }
+      console.log("Sensors Layout By Gateway: ",res.data);
+      this.flashMessage.show("Sensors Layout By Gateway Retreived Successfully", {cssClass: 'alert-success', timeout: 5000});
+    });
 
   }
 
