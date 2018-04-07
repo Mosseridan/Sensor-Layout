@@ -42,4 +42,12 @@ router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res
     });
 });
 
+// Delete Gateway
+router.post('/delete', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Gateway.deleteGateway(req.body._id, (err) => {
+        if (err) return res.json({ success: false , msg: 'Failed to delete gateway: ' +  err });
+        res.json({ success: true, msg: 'Gateway deleted scuccessfully' });
+    });
+});
+
 module.exports = router;

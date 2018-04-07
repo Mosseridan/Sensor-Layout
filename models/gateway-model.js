@@ -85,6 +85,19 @@ module.exports.addGateway = function(newGateway, onError, onSuccess) {
     );
 }
 
+module.exports.deleteGateway = function(id, callback) {
+    const Sensor = require('./sensor-model');
+    Gateway.findOne({ 'parentGateway' : id }, (err, gateway) => {
+        if (err) return callback(err);
+        if (gateway) return callback('Gateway being used by another gateway as parent ' + gateway.name);
+        Sensor.findOne({ 'gateway': id}, (err, sensor) => {
+          if (err) return callback(err);
+          if (sensor) return callback('Gateway being used by sensor ' + sensor.name);
+          Gateway.findByIdAndRemove(id, callback);
+        });
+    });
+}
+
 
 module.exports.editGateway = function(gateway, callback) {
   Gateway.findByIdAndUpdate(gateway._id,
