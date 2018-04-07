@@ -91,3 +91,13 @@ module.exports.editSensor = function(sensor, callback) {
      },
      callback);
 }
+
+module.exports.deleteSensor = function(id, callback) {
+    Site.updateMany({}, {$pull: {'sensors': id }}, (err, res) => {
+        if (err) return callback(err);
+        Gateway.updateMany({}, {$pull: {'sensors': id }}, (err, res) => {
+            if (err) return callback(err);
+            Sensor.findByIdAndRemove(id, callback);
+        });
+    });
+}

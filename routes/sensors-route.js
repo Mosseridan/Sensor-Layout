@@ -41,5 +41,13 @@ router.post('/edit', passport.authenticate('jwt', { session: false }), (req, res
     });
 });
 
+// Delete Sensor
+router.post('/delete', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    Sensor.deleteSensor(req.body._id, (err) => {
+        if (err) return res.json({ success: false , msg: 'Failed to delete sensor: ' +  err });
+        res.json({ success: true, msg: 'Sensor deleted scuccessfully' });
+    });
+});
+
 
 module.exports = router;
