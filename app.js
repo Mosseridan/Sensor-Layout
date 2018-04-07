@@ -15,6 +15,7 @@ const sensors = require('./routes/sensors-route');
 const gateways = require('./routes/gateways-route');
 const sites = require('./routes/sites-route');
 const config = require('./config/database');
+const jsons = require('./routes/jsons-route');
 
 
 mongoose.Promise = require('bluebird');
@@ -50,6 +51,7 @@ app.use('/manufacturers', manufacturers);
 app.use('/sensors', sensors);
 app.use('/gateways', gateways);
 app.use('/sites', sites);
+app.use('/jsons', jsons);
 
 // // Index route
 // app.get('*', (req,res) =>

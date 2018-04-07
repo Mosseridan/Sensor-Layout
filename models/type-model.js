@@ -16,6 +16,11 @@ module.exports.getTypeById = function(id, callback){
     Type.findById(id, callback);
 }
 
+module.exports.getTypesByIds = function(ids, callback){
+    Type.find({ _id: { $in : ids }}, callback)
+}
+
+
 module.exports.getTypeByName = function(name, callback){
     Type.findOne({'name': name}, callback);
 }

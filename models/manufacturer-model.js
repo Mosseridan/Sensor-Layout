@@ -19,6 +19,10 @@ module.exports.getManufacturerById = function(id, callback){
     Manufacturer.findById(id, callback);
 }
 
+module.exports.getManufacturersByIds = function(ids, callback){
+    Manufacturer.find({ _id: { $in : ids }}, callback)
+}
+
 module.exports.getManufacturerByName = function(name, callback){
     Manufacturer.findOne({'name': name}, callback);
 }

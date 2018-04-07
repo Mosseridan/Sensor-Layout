@@ -46,6 +46,10 @@ module.exports.getGatewayById = function(id, callback){
     Gateway.findById(id, callback);
 }
 
+module.exports.getGatewaysByIds = function(ids, callback){
+    Gateway.find({ _id: { $in : ids }}, callback)
+}
+
 module.exports.getGatewayByName = function(name, callback){
     Gateway.findOne({'name': name}, callback);
 }

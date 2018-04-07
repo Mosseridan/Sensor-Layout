@@ -17,7 +17,8 @@
     "multer": "^1.3.0",
     "nodemon": "^1.15.1",
     "passport": "*",
-    "passport-jwt": "*"
+    "passport-jwt": "*",
+    "rxjs": "^5.5.8"
   },
   "repository": {
     "type": "git",

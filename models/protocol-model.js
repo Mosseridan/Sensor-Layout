@@ -17,6 +17,11 @@ module.exports.getProtocolById = function(id, callback){
     Protocol.findById(id, callback);
 }
 
+module.exports.getProtocolsByIds = function(ids, callback){
+    Protocol.find({ _id: { $in : ids }}, callback)
+}
+
+
 module.exports.getProtocolByName = function(name, callback){
     Protocol.findOne({'name': name}, callback);
 }

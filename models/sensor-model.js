@@ -42,6 +42,11 @@ module.exports.getSensorById = function(id, callback){
     Sensor.findById(id, callback);
 }
 
+module.exports.getSensorsByIds = function(ids, callback){
+    Sensor.find({ _id: { $in : ids }}, callback)
+}
+
+
 module.exports.getSensorByName = function(name, callback){
     Sensor.findOne({'name': name}, callback);
 }

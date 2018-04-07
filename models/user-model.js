@@ -33,6 +33,11 @@ module.exports.getUserById = function(id, callback){
     User.findById(id, callback);
 }
 
+module.exports.getUsersByIds = function(ids, callback){
+    User.find({ _id: { $in : ids }}, callback)
+}
+
+
 module.exports.getUserByUsername = function(username, callback){
     User.findOne({'username': username}, callback);
 }

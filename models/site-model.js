@@ -33,6 +33,11 @@ module.exports.getSiteById = function(id, callback){
     Site.findById(id, callback);
 }
 
+module.exports.getSitesByIds = function(ids, callback){
+    Site.find({ _id: { $in : ids }}, callback)
+}
+
+
 module.exports.getSiteByName = function(name, callback){
     Site.findOne({'name': name}, callback);
 }
