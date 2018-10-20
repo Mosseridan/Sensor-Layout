@@ -9,10 +9,15 @@
     </mat-form-field>
     
     <app-auto-complete [optionsSourceUrl]="'manufacturers/all'" [placeHolder]="'Manufacturer'" #manufacturer></app-auto-complete> 
-    <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Site'" #site></app-auto-complete> 
     <app-multiple-choice [optionsSourceUrl]="'protocols/all'" [placeHolder]="'Protocols'" #protocols></app-multiple-choice>  
     <app-auto-complete [optionsSourceUrl]="'gateways/all'" [placeHolder]="'Parent Gateway'" #parentGateway></app-auto-complete> 
-
+    <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'Site'" #site></app-auto-complete> 
+    <mat-form-field class="mat-full-width">
+      <input matInput type="number" placeholder="Longitude"  [(ngModel)]="longitude" name="longitude">
+    </mat-form-field>
+    <mat-form-field class="mat-full-width">
+      <input matInput type="number" placeholder="Latitude"  [(ngModel)]="latitude" name="latitude">
+    </mat-form-field>
     <input type="submit" class="btn btn-primary" value="Add">
 
   </form>

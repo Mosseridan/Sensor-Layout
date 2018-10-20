@@ -17,9 +17,11 @@ export class AddGatewayComponent implements OnInit {
     name: string;
     protocols: AutoCompleteOption[];
     @ViewChild('manufacturer') manufacturerAC: AutoCompleteComponent;
-    @ViewChild('site') siteAC: AutoCompleteComponent;
     @ViewChild('protocols') protocolsAC: MultipleChoiceComponent;    
     @ViewChild('parentGateway') parentGatewayAC: AutoCompleteComponent;
+    @ViewChild('site') siteAC: AutoCompleteComponent;
+    longitude: number;
+    latitude: number;
 
     constructor(
       private router: Router,
@@ -36,11 +38,13 @@ export class AddGatewayComponent implements OnInit {
       let gateway = new Gateway(
         this.name,
         this.manufacturerAC.getSelectedOptionId(),
-        this.siteAC.getSelectedOptionId(),
         this.protocolsAC.getSelectedOptionIds(),
         this.parentGatewayAC.getSelectedOptionId(),
         [],
-        []
+        [],
+        this.siteAC.getSelectedOptionId(),
+        this.longitude,
+        this.latitude
       );
   
       console.log('@@@',gateway,'@@@');

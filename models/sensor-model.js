@@ -32,6 +32,14 @@ const SensorSchema = mongoose.Schema({
     site: {
         type: String,
         required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
+    latitude: {
+        type: Number,
+        required: true
     }
 });
 
@@ -90,10 +98,12 @@ module.exports.editSensor = function(sensor, callback) {
     { name: sensor.name,
      type: sensor.type,
      manufacturer: sensor.manufacturer,
-     protocols : sensor.protocols,
+     protocols: sensor.protocols,
      gateway: sensor.gateway,
-     site : sensor.site
-     },
+     site: sensor.site,
+     longitude: sensor.longitude,
+     latitude: sensor.latitude
+    },
      callback);
 }
 

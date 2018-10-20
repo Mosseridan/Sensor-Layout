@@ -14,6 +14,8 @@ router.post('/add', (req, res, next) => {//passport.authenticate('jwt', { sessio
         'protocols':  req.body.protocols,
         'gateway': req.body.gateway,
         'site': req.body.site,
+        'longitude': req.body.longitude,
+        'latitude': req.body.latitude
     });
 
     Sensor.addSensor(newSensor,

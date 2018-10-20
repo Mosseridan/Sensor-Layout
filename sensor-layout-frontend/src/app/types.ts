@@ -125,6 +125,8 @@ export class Sensor {
     protocols: string[];    
     gateway: string;
     site: string;
+    longitude: number;
+    latitude: number;
 
     constructor(
         name: string,
@@ -132,7 +134,9 @@ export class Sensor {
         manufacturer: string,
         protocols: string[],
         gateway: string,
-        site: string        
+        site: string,
+        longitude: number,
+        latitude: number    
     ) {
         this.name = name;
         this.type = type;
@@ -140,6 +144,8 @@ export class Sensor {
         this.protocols = protocols;        
         this.gateway = gateway;
         this.site = site;
+        this.longitude = longitude;
+        this.latitude = latitude;
     }
 }
 
@@ -155,28 +161,34 @@ export class Gateway {
     _id: string;
     name: string;
     manufacturer: string;
-    site: string;
     protocols: string[];
     parentGateway: string;
     childGateways: string[];
     sensors: string[];
+    site: string;
+    longitude: number;
+    latitude: number;
 
     constructor(
         name: string,
         manufacturer: string,
-        site: string,
         protocols: string[],
         parentGateway: string,
         childGateways: string[],
         sensors: string[],
+        site: string,
+        longitude: number,
+        latitude: number
     ) {
         this.name = name;
         this.manufacturer = manufacturer;
-        this.site = site;
         this.protocols = protocols;
         this.parentGateway = parentGateway;
         this.childGateways = childGateways;
         this.sensors = sensors;
+        this.site = site;
+        this.longitude = longitude;
+        this.latitude= latitude;
     }
 }
 

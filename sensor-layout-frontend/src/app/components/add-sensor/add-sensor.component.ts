@@ -48,6 +48,8 @@ export class AddSensorComponent implements OnInit {
   @ViewChild('protocols') protocolsAC: MultipleChoiceComponent;
   @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
   @ViewChild('site') siteAC: AutoCompleteComponent;
+  longitude: number;
+  latitude: number;
 
   constructor(
     private router: Router,
@@ -67,7 +69,9 @@ export class AddSensorComponent implements OnInit {
       this.manufacturerAC.getSelectedOptionId(),
       this.protocolsAC.getSelectedOptionIds(),
       this.gatewayAC.getSelectedOptionId(),
-      this.siteAC.getSelectedOptionId()
+      this.siteAC.getSelectedOptionId(),
+      this.longitude,
+      this.latitude
     );
 
     console.log('@@@',sensor,'@@@');

@@ -17,10 +17,6 @@ const GatewaySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    site: {
-        type: String,
-        required: true
-    },
     protocols: {
         type: [String],
         required: true
@@ -37,6 +33,18 @@ const GatewaySchema = mongoose.Schema({
         type: [String],
         required: true
     },
+    site: {
+        type: String,
+        required: true
+    },
+    longitude: {
+        type: Number,
+        required: true
+    },
+    latitude: {
+        type: Number,
+        required: true
+    }
 });
 
 const Gateway = module.exports = mongoose.model('Gateway', GatewaySchema);
@@ -107,12 +115,14 @@ module.exports.editGateway = function(gateway, callback) {
   Gateway.findByIdAndUpdate(gateway._id,
     { name: gateway.name,
      manufacturer: gateway.manufacturer,
-     site: gateway.site,
      protocols : gateway.protocols,
      parentGateway: gateway.parentGateway,
      childGateways : gateway.childGateways,
-     sensors: gateway.sensors
-     },
+     sensors: gateway.sensors,
+     site: gateway.site,
+     longitude: gateway.longitude,
+     latitude: gateway.latitude
+    },
      callback);
 }
 
