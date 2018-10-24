@@ -1006,7 +1006,7 @@ module.exports = ""
 /***/ "./src/app/components/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<br>\r\n<div class=\"container\">\r\n  <h2 class=\"page-header\">Dashboard</h2>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"getSiteJson()\">Get Sensors Layout By Sites</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"getGatewayJson()\">Get Sensors Layout By Gateways</button>\r\n    <br><hr><br>\r\n    <pre *ngIf=\"jsonLayout\">{{jsonLayout | json}}</pre>\r\n</div>\r\n\r\n"
+module.exports = "<mat-tab-group>\r\n  <mat-tab label=\"Sites View\" >\r\n    <br>\r\n    <div class=\"container\">\r\n      <h2 class=\"page-header\">Sensor Layout By Site</h2>\r\n        <app-auto-complete [optionsSourceUrl]=\"'sites/all'\" [placeHolder]=\"'All Sites'\" #site></app-auto-complete> \r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"getSiteJson()\">Compute</button>\r\n        <br><hr><br>\r\n        <pre *ngIf=\"jsonLayout\">{{jsonLayout | json}}</pre>\r\n    </div>    \r\n  </mat-tab>\r\n  <mat-tab label=\"Gateways View\">\r\n    <br>\r\n    <div class=\"container\">\r\n      <h2 class=\"page-header\">Sensor Layout By Gateway</h2>\r\n        <app-auto-complete [optionsSourceUrl]=\"'gateways/all'\" [placeHolder]=\"'All Gateways'\" #gateway></app-auto-complete> \r\n        <button type=\"button\" class=\"btn btn-primary\" (click)=\"getGatewayJson()\">Compute</button>\r\n        <br><hr><br>\r\n        <pre *ngIf=\"jsonLayout\">{{jsonLayout | json}}</pre>\r\n    </div>  \r\n  </mat-tab>\r\n</mat-tab-group>\r\n<!-- \r\n<br>\r\n<div class=\"container\">\r\n  <h2 class=\"page-header\">Dashboard</h2>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"getSiteJson()\">Get Sensors Layout By Sites</button>\r\n    <button type=\"button\" class=\"btn btn-primary\" (click)=\"getGatewayJson()\">Get Sensors Layout By Gateways</button>\r\n    <br><hr><br>\r\n    <pre *ngIf=\"jsonLayout\">{{jsonLayout | json}}</pre>\r\n</div> -->\r\n\r\n"
 
 /***/ }),
 
@@ -1016,9 +1016,10 @@ module.exports = "<br>\r\n<div class=\"container\">\r\n  <h2 class=\"page-header
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_auth_service__ = __webpack_require__("./src/app/services/auth/auth.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__ = __webpack_require__("./node_modules/angular2-flash-messages/module/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auto_complete_auto_complete_component__ = __webpack_require__("./src/app/components/auto-complete/auto-complete.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth_auth_service__ = __webpack_require__("./src/app/services/auth/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__ = __webpack_require__("./node_modules/angular2-flash-messages/module/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1031,6 +1032,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var DashboardComponent = /** @class */ (function () {
     function DashboardComponent(authService, flashMessage) {
         this.authService = authService;
@@ -1040,7 +1042,8 @@ var DashboardComponent = /** @class */ (function () {
     };
     DashboardComponent.prototype.getSiteJson = function () {
         var _this = this;
-        this.authService.get('jsons/by-site').subscribe(function (res) {
+        var siteId = this.siteAC.getSelectedOptionId();
+        this.authService.get('jsons/by-site/' + siteId).subscribe(function (res) {
             if (!res.success) {
                 console.log(res.msg);
                 return _this.flashMessage.show(res.msg, { cssClass: 'alert-danger', timeout: 5000 });
@@ -1052,7 +1055,8 @@ var DashboardComponent = /** @class */ (function () {
     };
     DashboardComponent.prototype.getGatewayJson = function () {
         var _this = this;
-        this.authService.get('jsons/by-gateway').subscribe(function (res) {
+        var gatewayId = this.gatewayAC.getSelectedOptionId();
+        this.authService.get('jsons/by-gateway/' + gatewayId).subscribe(function (res) {
             if (!res.success) {
                 console.log(res.msg);
                 return _this.flashMessage.show(res.msg, { cssClass: 'alert-danger', timeout: 5000 });
@@ -1062,14 +1066,22 @@ var DashboardComponent = /** @class */ (function () {
             _this.jsonLayout = res.data;
         });
     };
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('gateway'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__auto_complete_auto_complete_component__["a" /* AutoCompleteComponent */])
+    ], DashboardComponent.prototype, "gatewayAC", void 0);
+    __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('site'),
+        __metadata("design:type", __WEBPACK_IMPORTED_MODULE_1__auto_complete_auto_complete_component__["a" /* AutoCompleteComponent */])
+    ], DashboardComponent.prototype, "siteAC", void 0);
     DashboardComponent = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
             selector: 'app-dashboard',
             template: __webpack_require__("./src/app/components/dashboard/dashboard.component.html"),
             styles: [__webpack_require__("./src/app/components/dashboard/dashboard.component.css")]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_auth_auth_service__["a" /* AuthService */],
-            __WEBPACK_IMPORTED_MODULE_2_angular2_flash_messages__["FlashMessagesService"]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_auth_auth_service__["a" /* AuthService */],
+            __WEBPACK_IMPORTED_MODULE_3_angular2_flash_messages__["FlashMessagesService"]])
     ], DashboardComponent);
     return DashboardComponent;
 }());

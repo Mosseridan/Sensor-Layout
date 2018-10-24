@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { AutoCompleteComponent } from '../auto-complete/auto-complete.component';
 import { AuthService } from '../../services/auth/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
@@ -9,7 +10,12 @@ import { FlashMessagesService } from 'angular2-flash-messages';
 })
 export class DashboardComponent implements OnInit {
 
-  jsonLayout 
+
+  @ViewChild('gateway') gatewayAC: AutoCompleteComponent;
+  @ViewChild('site') siteAC: AutoCompleteComponent;
+  
+  jsonLayout;
+  
 
   constructor(private authService: AuthService, 
     private flashMessage: FlashMessagesService) { 
@@ -19,7 +25,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getSiteJson(){
-    this.authService.get('jsons/by-site').subscribe((res) => {
+    let siteId = this.siteAC.getSelectedOptionId();
+    this.authService.get('jsons/by-site/'+siteId).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});
@@ -31,7 +38,8 @@ export class DashboardComponent implements OnInit {
   }
 
   getGatewayJson(){
-    this.authService.get('jsons/by-gateway').subscribe((res) => {
+    let gatewayId = this.gatewayAC.getSelectedOptionId();
+    this.authService.get('jsons/by-gateway/'+gatewayId).subscribe((res) => {
       if(!res.success) {
         console.log(res.msg);
         return this.flashMessage.show(res.msg, {cssClass: 'alert-danger', timeout: 5000});

@@ -1,3 +1,26 @@
+<mat-tab-group>
+  <mat-tab label="Sites View" >
+    <br>
+    <div class="container">
+      <h2 class="page-header">Sensor Layout By Site</h2>
+        <app-auto-complete [optionsSourceUrl]="'sites/all'" [placeHolder]="'All Sites'" #site></app-auto-complete> 
+        <button type="button" class="btn btn-primary" (click)="getSiteJson()">Compute</button>
+        <br><hr><br>
+        <pre *ngIf="jsonLayout">{{jsonLayout | json}}</pre>
+    </div>    
+  </mat-tab>
+  <mat-tab label="Gateways View">
+    <br>
+    <div class="container">
+      <h2 class="page-header">Sensor Layout By Gateway</h2>
+        <app-auto-complete [optionsSourceUrl]="'gateways/all'" [placeHolder]="'All Gateways'" #gateway></app-auto-complete> 
+        <button type="button" class="btn btn-primary" (click)="getGatewayJson()">Compute</button>
+        <br><hr><br>
+        <pre *ngIf="jsonLayout">{{jsonLayout | json}}</pre>
+    </div>  
+  </mat-tab>
+</mat-tab-group>
+<!-- 
 <br>
 <div class="container">
   <h2 class="page-header">Dashboard</h2>
@@ -5,5 +28,5 @@
     <button type="button" class="btn btn-primary" (click)="getGatewayJson()">Get Sensors Layout By Gateways</button>
     <br><hr><br>
     <pre *ngIf="jsonLayout">{{jsonLayout | json}}</pre>
-</div>
+</div> -->
 

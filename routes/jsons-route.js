@@ -11,8 +11,11 @@ const Protocol = require('../models/protocol-model');
 const Manufacturer = require('../models/manufacturer-model');
 
 // Get the layout by site 
-router.get('/by-site', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Site.find({parentSite : null}, (err, sites) => {
+router.get('/by-site/:siteId', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    let query = {};
+    if (req.params.siteId == 'undefined') query.parentSite = null;
+    else query._id = req.params.siteId;
+    Site.find(query, (err, sites) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all sites: ' +  err });
         let promises = sites.map((site) => {
             return getSiteSubtreePromise(site);
@@ -66,8 +69,11 @@ function getSiteSubtreePromise(rootSite){
 }
 
 // Get the layout by gateway 
-router.get('/by-gateway', passport.authenticate('jwt', { session: false }), (req, res, next) => {
-    Gateway.find({parentGateway : undefined}, (err, gateways) => {
+router.get('/by-gateway/:gatewayId', passport.authenticate('jwt', { session: false }), (req, res, next) => {
+    let query = {};
+    if (req.params.gatewayId == 'undefined') query.parentSite = null;
+    else query._id = req.params.gatewayId;
+    Gateway.find(query, (err, gateways) => {
         if (err) return res.json({ success: false , msg: 'Failed to get all gateways: ' +  err });
         let promises = gateways.map((gateway) => {
             return getGatewaySubtreePromise(gateway);
